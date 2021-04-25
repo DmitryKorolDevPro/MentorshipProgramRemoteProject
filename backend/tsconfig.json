@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "es6",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "./prod/"
+  },
+  "files": [
+    "./dev/app.ts",
+    "./dev/controller.ts",
+    "./dev/model.ts",
+    "./dev/router.ts",
+  ]
+}
