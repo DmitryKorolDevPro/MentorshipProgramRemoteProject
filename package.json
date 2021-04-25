@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject/issues"
   },
-  "homepage": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject#readme"
+  "homepage": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject#readme",
+  "dependencies": {
+    "typescript": "4.2.4"
+  }
 }
