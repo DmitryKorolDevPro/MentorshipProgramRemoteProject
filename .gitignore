@@ -40,6 +40,8 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+frontend/js/*
+!frontend/js/app.ts
 
 # TypeScript v1 declaration files
 typings/

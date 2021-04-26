@@ -5,20 +5,22 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "frontend-prod": "tsc -p frontend/tsconfig.json && node frontend/app.js",
-    "start": "npm run frontend-prod"
+    "frontend-prod": "tsc -p frontend/tsconfig.json && node frontend/js/app.js",
+    "frontend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run frontend-prod\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject.git"
   },
-  "author": "",
+  "author": "Trupkina and Khyzhniak",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject/issues"
   },
   "homepage": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject#readme",
   "dependencies": {
+    "express": "4.17.1",
+    "nodemon": "2.0.7",
     "typescript": "4.2.4"
   }
 }

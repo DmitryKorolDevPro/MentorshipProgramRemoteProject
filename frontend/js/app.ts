@@ -4,4 +4,4 @@ const sayHello = (name: string) => {
 
 let user = 'Lana';
 
-alert(sayHello(user));
+console.log(sayHello(user));
