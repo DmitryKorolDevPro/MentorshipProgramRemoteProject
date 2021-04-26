@@ -4,7 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "frontend-prod": "tsc -p frontend/tsconfig.json && node frontend/app.js",
+    "start": "npm run frontend-prod"
   },
   "repository": {
     "type": "git",
