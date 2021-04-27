@@ -1,24 +1,142 @@
 {
   "list": [
     {
-      "id": 0,
-      "name": "Item 0"
+      "name": "SLICER Light Coral",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1950,
+      "url": "https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true"
     },
     {
-      "id": 1,
-      "name": "Item 1"
+      "name": "SLICER Titanium White",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1780,
+      "url": "https://github.com/exORYON/db/blob/main/120139455_115813640270969_2930161371286048021_n.jpg?raw=true"
     },
     {
-      "id": 2,
-      "name": "Item 2"
+      "name": "SLICER Black and White",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1990,
+      "url": "https://github.com/exORYON/db/blob/main/121235325_126877025548567_2222252721004759005_n.jpg?raw=true"
     },
     {
-      "id": 3,
-      "name": "Item 3"
+      "name": "SLICER Night",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1680,
+      "url": "https://github.com/exORYON/db/blob/main/123341033_274418847267096_9129209827290048632_n.jpg?raw=true"
     },
     {
-      "id": 4,
-      "name": "Item 4"
+      "name": "SLICER Bloody",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1999,
+      "url": "https://github.com/exORYON/db/blob/main/123403794_481755306065916_2801586288664686810_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Marine",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1500,
+      "url": "https://github.com/exORYON/db/blob/main/139852253_224291332519618_4265951042297070639_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Sneaky",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1499,
+      "url": "https://github.com/exORYON/db/blob/main/140370870_692321638119443_8194939502407238248_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Orbit-8",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1888,
+      "url": "https://github.com/exORYON/db/blob/main/141559958_867221300722438_7622904942041361159_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Drago",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1660,
+      "url": "https://github.com/exORYON/db/blob/main/131005842_382355842870688_2770087515132979497_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER White wolf",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 2199,
+      "url": "https://github.com/exORYON/db/blob/main/151387926_824830294738184_1265848908326283482_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Platinum",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 2000,
+      "url": "https://github.com/exORYON/db/blob/main/155499128_5197245506983789_8014452392662128956_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Gray Cloud",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1600,
+      "url": "https://github.com/exORYON/db/blob/main/121191948_383679462630941_3968448522456868699_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Vampire Gray",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1999,
+      "url": "https://github.com/exORYON/db/blob/main/160964331_286760039465375_4247176901054224023_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Black-X",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1800,
+      "url": "https://github.com/exORYON/db/blob/main/166251811_5159735014097212_7214717108794192230_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Slime",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1820,
+      "url": "https://github.com/exORYON/db/blob/main/169871320_458483692048571_6586004615848378570_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Trippie",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1780,
+      "url": "https://github.com/exORYON/db/blob/main/169885763_3971524352964830_3485694905555748694_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER White arrow",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1990,
+      "url": "https://github.com/exORYON/db/blob/main/170245210_139617121498587_9041741663206995882_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Wind",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 2220,
+      "url": "https://github.com/exORYON/db/blob/main/173098415_205665784369641_7395172627539371692_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Tangerine",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1770,
+      "url": "https://github.com/exORYON/db/blob/main/173212893_916892635540507_9071070730753087811_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Latte",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1999,
+      "url": "https://github.com/exORYON/db/blob/main/174067225_482599662867390_6427289361886396239_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Pink sugar",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1700,
+      "url": "https://github.com/exORYON/db/blob/main/175621456_1596487333880029_5209184562046024916_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Fire",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1860,
+      "url": "https://github.com/exORYON/db/blob/main/176262130_964991224237833_7678617603530331333_n.jpg?raw=true"
+    },
+    {
+      "name": "SLICER Grey Sand",
+      "descr": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum lobortis dictum neque, at tincidunt eros convallis quis. Donec ultricies sapien in lobortis pretium. Sed suscipit ipsum dolor, at pellentesque metus auctor quis. Suspendisse rhoncus ultricies mi, nec pharetra turpis tincidunt et.",
+      "price": 1499,
+      "url": "https://github.com/exORYON/db/blob/main/176733894_832952043987991_1063118205796755369_n.jpg?raw=true"
     }
   ]
 }
