@@ -1,21 +1,16 @@
 import { promises as fsp } from 'fs';
 
-console.log('Model is working.');
+interface DatabaseModel {
+  getList(): object[] | object;
+}
 
-export class Model {
-  constructor() {
-    this.testDatabase();
-  }
-
-  async testDatabase() {
+export class Model implements DatabaseModel {
+  async getList() {
     try {
       const database = await fsp.readFile('./backend/prod/db.json');
-
-      console.log(JSON.parse(database.toString()));
-      console.log('Database is working.');
+      return JSON.parse(database.toString()).list;
     } catch (error) {
-      console.log(error);
-      console.log('!!! Database is NOT working. !!!');
+      console.error(`Not able to receive data from database. ${error}`);
     }
   }
 }
