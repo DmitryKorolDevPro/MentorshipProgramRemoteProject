@@ -3,57 +3,32 @@
 
 <head>
     <meta charset="utf-8" />
-    <title></title>
+    <title>SLICER e-Shop</title>
     <meta name="keywords" content="" />
     <meta name="description" content="" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,400;1,500;1,900&display=swap"
+        rel="stylesheet">
     <link href="style.css" rel="stylesheet">
 </head>
 
-<body>
+<body class="align-center column">
+    <header class="align-center header">SLICER</header>
+    <main class="align-center column main" id="content">
+        <ul class="align-center column" id="list"></ul>
 
-    <div class="wrapper">
-
-        <header class="header">
-            HEADER header
-        </header>
-
-        <div class="middle">
-            <aside class="left-sidebar">
-                <button>HOME</button>
-                <button>NEW</button>
-                <button>DISCOUNT</button>
-                <button>BASKET</button>
-            </aside>
-
-            <div class="container">
-                <ul id="content">
-                    <!-- <li><img
-                            src="https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true">
-                        <span>SLICER Light Coral</span>
-                        <label>1950</label>
-                    </li>
-                    <li><img
-                            src="https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true">
-                        <span>SLICER Light Coral</span>
-                        <label>1950</label>
-                    </li> -->
-                </ul>
-            </div>
-
-
-            <div class="item-nav">
-                <div class="prev" onclick="prevPage()">Previous</div>
-                <div class="next" onclick="nextPage()">Next</div>
-            </div>
+        <div class="pagination">
+            <button class="pagination__button pagination__prev" id="prev">Previous</button>
+            <span class="pagination__number" id="num">1</span>
+            <button class="pagination__button pagination__next" id="next">Next</button>
         </div>
-
-    </div>
-
-    <footer class="footer">
-        FOOTER footer
+    </main>
+    <footer class="align-center footer">
+        <small>2021 SLICER ©</small>
     </footer>
 
-    <script src="./prod/app.js"></script>
+    <script src="./js/script.js"></script>
 </body>
 
 </html>
