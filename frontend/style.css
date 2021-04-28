@@ -17,8 +17,8 @@ body {
 	width: 100%;
 	min-width: 1000px;
 	min-height: 100%;
-	height: auto !important;
-	height: 100%;
+	position: relative;
+
 }
 /* ____________________________________Header__________________________________________*/
 .header {
@@ -30,7 +30,7 @@ body {
 /*____________________________________ Middle____________________________________________*/
 .middle {
 	width: 100%;
-	padding: 0 0 100px;
+	padding: 0 0 0;
 	position: relative;
 }
 .middle:after {
@@ -42,33 +42,45 @@ body {
 	width: 100%;
 	float: left;
 	overflow: hidden;
-    display: flex;
-	flex-direction: column;
+    display: inline-flex;
+	flex-direction:row;
     justify-content: center;
 }
-.content {
-	padding: 0 0 0 270px;
+#content {
+	display:inline-flex;
     flex-wrap: wrap; 
+	justify-content: center;
+	padding: 0 0 0 270px;
+	
 }
-.content div{
+#content li{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 5px 10px 40px 10px ;
     background-color: #ffffff;
     color: #000000;
-    
     box-shadow: 0 0 5px 1px grey;
-    width: 95%;
-    height: 500px;
-    margin: 5px 10px 40px 10px ;
+    width: 450px;
+    height: 450px;
+    
     border: none;
+}
+#content span{
+	display: flex;
+	
+    background-color: #a0a0a0;
 }
 /* _________________________________Left Sidebar______________________________________*/
 .left-sidebar {
 	float: left;
 	position: fixed;
 	width: 250px;
+	height: 100%;
 	background: #a3a3a3;
 }
 .left-sidebar button{
-    background-color: #ffffff;
+    background-color: #ffffff00;
 	margin-top: 2px;
     width: 100%;
     height: 100px;
@@ -79,12 +91,28 @@ body {
 	background-color: #cecece;
 	transition: 0.5s linear;
 }
+/*______________________________Nav(previous-next)____________________________________*/
+.item-nav {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+.item-nav div{
+	display: flex;
+	background-color: #cecece;
+	width: 250px;
+	margin-right: 40px;
+	justify-content: center;
+}
 /* ___________________________________Footer___________________________________________*/
 .footer {
-	margin: -100px auto 0;
+	margin:  0 0 100px 0;
 	min-width: 1000px;
 	height: 100px;
 	background: #000000;
     color: #ffffff;
+	display: flex;
 	position: relative;
 }
