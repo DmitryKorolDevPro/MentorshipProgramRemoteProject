@@ -7,7 +7,7 @@ export type ResponseObj = {
 }
 
 export class Controller {
-  async getAllItems() {
+  async getAllItems():Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
       result: []
@@ -26,7 +26,7 @@ export class Controller {
     return response;
   }
 
-  async getFiveItems(page: any) {
+  async getFiveItems(page: any):Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
       result: []

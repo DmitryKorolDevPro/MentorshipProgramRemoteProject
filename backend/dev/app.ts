@@ -3,7 +3,7 @@ import express from 'express';
 import { router } from './router.js';
 
 const app = express();
-let port:number = process.env.PORT === undefined ? 5500 : +process.env.PORT;
+const port:number | string = process.env.PORT || 5500;
 
 app.use(cors())
 app.use('/', router);
