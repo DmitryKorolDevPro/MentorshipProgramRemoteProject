@@ -1,0 +1,118 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+html {
+	height: 100%;
+}
+article, aside, details, figcaption, figure, footer, header, hgroup, main, nav, section, summary {
+	display: block;
+}
+body {
+	font: Montserrat,sans-serif;
+    font-size: 15px;
+	height: 100%;
+}
+.wrapper {
+	width: 100%;
+	min-width: 1000px;
+	min-height: 100%;
+	position: relative;
+
+}
+/* ____________________________________Header__________________________________________*/
+.header {
+	height: 90px;
+	background: #ffffff;
+    border-bottom: 2px solid #2b071f;
+	margin-bottom: 30px;
+}
+/*____________________________________ Middle____________________________________________*/
+.middle {
+	width: 100%;
+	padding: 0 0 0;
+	position: relative;
+}
+.middle:after {
+	display: table;
+	clear: both;
+	content: '';
+}
+.container {
+	width: 100%;
+	float: left;
+	overflow: hidden;
+    display: inline-flex;
+	flex-direction:row;
+    justify-content: center;
+}
+#content {
+	display:inline-flex;
+    flex-wrap: wrap; 
+	justify-content: center;
+	padding: 0 0 0 270px;
+	
+}
+#content li{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 5px 10px 40px 10px ;
+    background-color: #ffffff;
+    color: #000000;
+    box-shadow: 0 0 5px 1px grey;
+    width: 450px;
+    height: 450px;
+    
+    border: none;
+}
+#content span{
+	display: flex;
+	
+    background-color: #a0a0a0;
+}
+/* _________________________________Left Sidebar______________________________________*/
+.left-sidebar {
+	float: left;
+	position: fixed;
+	width: 250px;
+	height: 100%;
+	background: #a3a3a3;
+}
+.left-sidebar button{
+    background-color: #ffffff00;
+	margin-top: 2px;
+    width: 100%;
+    height: 100px;
+    border: none;
+	cursor: pointer;
+}
+.left-sidebar button:hover {
+	background-color: #cecece;
+	transition: 0.5s linear;
+}
+/*______________________________Nav(previous-next)____________________________________*/
+.item-nav {
+	display: flex;
+	width: 100%;
+	justify-content: center;
+	margin-bottom: 30px;
+	cursor: pointer;
+}
+.item-nav div{
+	display: flex;
+	background-color: #cecece;
+	width: 250px;
+	margin-right: 40px;
+	justify-content: center;
+}
+/* ___________________________________Footer___________________________________________*/
+.footer {
+	margin:  0 0 100px 0;
+	min-width: 1000px;
+	height: 100px;
+	background: #000000;
+    color: #ffffff;
+	display: flex;
+	position: relative;
+}

@@ -6,13 +6,15 @@
   "type": "module",
   "scripts": {
     "backend-prod": "tsc -p backend/tsconfig.json && node backend/prod/app.js",
-    "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run backend-prod\""
+    "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run backend-prod\"",
+    "frontend-prod": "tsc -p frontend/tsconfig.json && node frontend/prod/app.js",
+    "frontend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run frontend-prod\""
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject.git"
   },
-  "author": "",
+  "author": "Trupkina and Khyzhniak",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/DmitryKorolDevPro/MentorshipProgramRemoteProject/issues"
