@@ -95,7 +95,6 @@ img {
 
 .pagination, #list {
   display: none;
-	/* display: flex; */
 }
 
 .pagination {
@@ -119,6 +118,8 @@ img {
   cursor: pointer;
   margin: 0 10px;
 	font-size: 1.2em;
+  border: 0;
+  background-color: transparent;
 }
 
 .footer {
@@ -141,4 +142,3 @@ img {
     transform: rotate(360deg);
   }
 }
-

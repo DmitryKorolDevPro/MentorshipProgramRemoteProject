@@ -1,11 +1,11 @@
-let currentList: null | object[] = null;
-let currentPage: number = 1;
+let currentList: object[] = [];
+let currentPage: number = 5;
 const itemsPerPage: number = 5;
 
 const contentContainer: HTMLDivElement | null = document.querySelector('#content');
 const itemsContainer: HTMLUListElement | null = document.querySelector('#list');
 const pagination: HTMLDivElement | null = document.querySelector('#pagination');
-const currentPageText: HTMLSpanElement | null = document.querySelector('#num');
+const currentPageSpan: HTMLSpanElement | null = document.querySelector('#num');
 const buttonNext: HTMLButtonElement | null = document.querySelector('#next');
 const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
 
@@ -19,9 +19,25 @@ type listItem = {
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
   buttonPrev.addEventListener('click', prevPage);
-} else {
-  console.error('Button PREVIOUS or button NEXT is missing...');
 }
+
+async function getDataAndUpdatePage(): Promise<void> {
+  hideCatalog();
+  hidePagination();
+  showSpinner();
+
+  currentList = await getDataFromBE(currentPage);
+
+  if (currentList.length === 0 || currentList.length > itemsPerPage) {
+    errorOccurred();
+  } else {
+    updatePageNum();
+    updateCatalog();
+  }
+}
+
+getDataAndUpdatePage();
+updatePaginationButtons();
 
 async function getDataFromBE(page: number) {
   try {
@@ -31,7 +47,6 @@ async function getDataFromBE(page: number) {
         if (list.length === 0) {
           throw new Error('Error. Stock is empty');
         }
-
         return list;
       })
   } catch (error) {
@@ -39,32 +54,19 @@ async function getDataFromBE(page: number) {
   }
 }
 
-function addSpinner(): void {
-  if (contentContainer) {
-    contentContainer.insertAdjacentHTML('afterbegin', `<i class="fas fa-compact-disc spinner" id="spinner"></i>`);
-  }
-}
-
-function removeSpinner(): void {
-  const spinner: HTMLElement | null = document.querySelector('#spinner');
-
-  if (spinner) {
-    spinner.style.display = 'none';
-  }
-}
-
-function updateContent(): void {
-  itemsContainer.innerHTML = '';
-
-  if (currentList === null) {
+function updateCatalog(): void {
+  if (!currentList || !itemsContainer) {
     errorOccurred();
+    return;
   }
+
+  itemsContainer.innerHTML = '';
 
   for (let i = 0; i < currentList.length; i++) {
     const item = currentList[i];
 
     if (i === currentList.length - 1) {
-      // If item is the last one, deletes the spinner
+      // If item is the last one, he deletes the spinner
       createNewItem(item, true);
       return;
     }
@@ -100,25 +102,109 @@ function createNewItem(item: listItem, isLast: boolean) {
     price.classList.add('card__price');
     price.textContent = item.price + "UAH.";
 
-
     info.append(descrip, price);
     wrapper.append(img, info);
     li.append(title, wrapper);
     itemsContainer.appendChild(li);
 
     if (isLast) {
-      removeSpinner();
-      displayPagination();
-      itemsContainer.style.display = 'flex';
+      hideSpinner();
+      showCatalog();
+      showPagination();
     }
   }
 
   img.src = item.url;
 }
 
+function showSpinner(): void {
+  if (contentContainer) {
+    contentContainer.insertAdjacentHTML('afterbegin', `<i class="fas fa-compact-disc spinner" id="spinner"></i>`);
+  }
+}
 
-function displayPagination() {
-  pagination.style.display = 'flex';
+function hideSpinner(): void {
+  const spinner: HTMLElement | null = document.querySelector('#spinner');
+
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
+}
+
+function showCatalog(): void {
+  if (itemsContainer) {
+    itemsContainer.style.display = 'flex';
+  }
+}
+
+function hideCatalog(): void {
+  if (itemsContainer) {
+    itemsContainer.style.display = 'none';
+  }
+}
+
+function showPagination():void {
+  if (pagination) {
+    pagination.style.display = 'flex';
+  }
+}
+
+function hidePagination():void {
+  if (pagination) {
+    pagination.style.display = 'none';
+  }
+}
+
+function nextPage(): void {
+  if (currentList.length > 0) {
+    currentPage++;
+    getDataAndUpdatePage();
+    updatePaginationButtons();
+  }
+}
+
+function prevPage(): void {
+  if (currentPage > 1) {
+    currentPage--;
+    getDataAndUpdatePage();
+    updatePaginationButtons();
+  }
+}
+
+function updatePageNum(): void {
+  if (currentPageSpan) {
+    currentPageSpan.textContent = currentPage;
+  }
+}
+
+async function updatePaginationButtons() {
+  if (await nextPageExists(currentPage + 1)) {
+    buttonNext.disabled = false;
+  } else {
+    buttonNext.disabled = true;
+  }
+
+  if (currentPage > 1) {
+    buttonPrev.disabled = false;
+  } else {
+    buttonPrev.disabled = true;
+  }
+} 
+
+async function nextPageExists(page: number):Promise<boolean> {
+  try {
+    return (await fetch(`http://localhost:5500/api/sneakers/${page}`))
+      .json()
+      .then(list => { 
+        if (list.length === 0) {
+          return false;
+        } else {
+          return true;
+        }
+      })
+  } catch (error) {
+    return false;
+  }
 }
 
 function errorOccurred(error = '') {
@@ -128,72 +214,3 @@ function errorOccurred(error = '') {
     contentContainer.innerHTML = '<span class="error">Sorry, try again later...</span>';
   }
 }
-
-function nextPage() {
-  if (currentList.length > 0) {
-    currentPage++;
-    getDataAndUpdatePage();
-  }
-}
-
-function prevPage() {
-  if (currentPage > 1) {
-    currentPage--;
-    getDataAndUpdatePage();
-  }
-}
-
-
-function updatePageNum() {
-  currentPageText.textContent = currentPage;
-}
-
-async function getDataAndUpdatePage() {
-  addSpinner();
-  currentList = await getDataFromBE(currentPage);
-
-  if (currentList.length === 0 || currentList.length > itemsPerPage) {
-    errorOccurred();
-  } else {
-    updateContent();
-  }
-}
-
-getDataAndUpdatePage();
-
-
-
-
-/*
-
-function numPages() {
-    return Math.ceil(list.length / itemOnPage);
-=======
-  // if (currentPage < fromBE lenght) {
-  //     currentPage++;
-  //     updateContent(currentPage);
-  // }
-}
-
-function prevPage() {
-  // if (currentPage > 1) {
-  //     currentPage--;
-  //     updateContent(currentPage);
-  // }
-}
-
-EXAMPLE OF THE CARD:
-    <li class="align-center column list__item card">
-        <span class="card__title">SLICER Light Coral</span>
-
-        <div class="wrapper">
-            <img class="card__img"
-                src="https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true">
-
-            <div class="wrapper info">
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="card__price">1950 грн.</span>
-            </div>
-        </div>
-    </li>
-*/
