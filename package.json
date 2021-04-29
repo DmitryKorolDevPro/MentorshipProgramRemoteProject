@@ -7,7 +7,7 @@
     "backend-start": "node backend/prod/app.js",
     "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec npm run backend-start",
     "frontend-start": "cd frontend && live-server",
-    "frontend-dev": "nodemon --ext ts --exec tsc -p frontend/tsconfig.json && node backend/prod/app.js"
+    "frontend-dev": "tsc -p frontend/tsconfig.json --watch"
   },
   "repository": {
     "type": "git",

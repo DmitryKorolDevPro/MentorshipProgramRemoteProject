@@ -92,8 +92,9 @@ img {
 	color: #1c1c1ccb;
 }
 
-.pagination {
-	display: flex;
+.pagination, .list {
+  display: none;
+	/* display: flex; */
 }
 
 .pagination__button {
@@ -111,6 +112,19 @@ img {
   color: var(--white);
 }
 
+.error {
+  font-weight: 300;
+  font-size: 1.5em;
+}
 
+.fa-compact-disc {
+  font-size: 2.5em;
+  animation: spinning 0.7s infinite;
+}
 
+@keyframes spinning {
+  from {
+    transform: rotate(360deg);
+  }
+}
 

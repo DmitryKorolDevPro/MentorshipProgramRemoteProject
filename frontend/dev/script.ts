@@ -1,8 +1,10 @@
 let currentList: null | object[] = null;
-let currentPage = 1;
-const itemPerPage = 5;
+let currentPage: number = 1;
+const itemsPerPage: number = 5;
 
+const contentContainer = document.querySelector('#content');
 const itemsContainer = document.querySelector('#list');
+const pagination = document.querySelector('#pagination');
 const currentPageText = document.querySelector('#num');
 const buttonNext = document.querySelector('#next');
 const buttonPrev = document.querySelector('#prev');
@@ -14,29 +16,43 @@ if (buttonNext && buttonPrev) {
   console.error('Button PREVIOUS or button NEXT is missing...');
 }
 
-document.body.onload = () => {
-    getDataFromBE(currentPage);
-    // updateContent();
+document.body.onload = async () => {
+  getDataFromBE(currentPage);
 }
 
-async function getDataFromBE(page: number) {
-  (await fetch( `http://localhost:5500/api/sneakers/${page}`))
+async function getDataFromBE(page: number): Promise<void> {
+  try {
+    addSpinner();
+    (await fetch( `http://localhost:5500/api/sneakers/${page}`))
     .json()
     .then(list => {
       currentList = list;
-      console.log(currentList);
       updateContent();
-    });
+    })
+  } catch (error) {
+    errorOccurred(error);
+  }
 }
 
-function updateContent() {
-  if (currentList === null || currentList.length === 0) {
+function addSpinner(): void {
+  if (contentContainer) {
+    contentContainer.insertAdjacentHTML('afterbegin', `<i class="fas fa-compact-disc spinner" id="spinner"></i>`);
+  }
+}
+
+function removeSpinner(): void {
+  const spinner: HTMLElement | null = document.querySelector('#spinner');
+
+  if (spinner) {
+    spinner.style.display = 'none';
+  }
+}
+
+function updateContent(): void {
+  if (currentList === null || (currentList.length > 0 && currentList.length > itemsPerPage)) {
     errorOccurred();
     return;
   }
-
-    // TODO: LIST LENGTH MUST BE 5. CHECK
-    // TODO: LIST LENGTH MUST BE > 0. CHECK itemsContainter.innerHTML = 'Sorry, stock is empty :(';
 
     for (let item of currentList) {
         const li = document.createElement('li');
@@ -50,10 +66,16 @@ function updateContent() {
         wrapper.classList.add('wrapper');
 
         const img = new Image();
-        img.classList.add('card__img');
-        img.src = item.url;
-        img.alt = ('Image of ' + item.name);
-        img.onerror = error => { console.error(error); };
+
+        new Promise((resolve, reject) => {
+          img.onload = () => resolve(img);
+          img.onerror = reject()
+        })
+        .then(() => {
+          img.classList.add('card__img');
+          img.src = item.url;
+          img.alt = ('Image of ' + item.name);
+        })
 
         const info = document.createElement('div');
         info.classList.add('wrapper', 'info');
@@ -72,13 +94,16 @@ function updateContent() {
         li.append(title, wrapper);
         itemsContainer.appendChild(li);
     }
+
+    removeSpinner();
+    itemsContainer.style.display = 'flex';
 }
 
-function errorOccurred() {
-  console.error('Cannot load and display items.')
+function errorOccurred(error = '') {
+  console.error(`Cannot load and display items. ${error}`);
 
-  if (itemsContainer) {
-    itemsContainer.innerHTML = 'Sorry, try again later...';
+  if (contentContainer) {
+    contentContainer.innerHTML = '<span class="error">Sorry, try again later...</span>';
   }
 }
 
