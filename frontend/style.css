@@ -64,6 +64,7 @@ img {
 	width: 65%;
 	align-items: flex-start;
 	margin: 15px 0;
+  cursor: pointer;
 }
 
 .wrapper {
@@ -92,19 +93,32 @@ img {
 	color: #1c1c1ccb;
 }
 
-.pagination, .list {
+.pagination, #list {
   display: none;
 	/* display: flex; */
 }
 
+.pagination {
+  margin-bottom: 15px;
+}
+
+.pagination__number {
+  background-color: var(--white);
+}
+
+.pagination__number {
+  font-size: 1em;
+  height: 35px;
+  width: 35px;
+  border-radius: 50%;
+  font-weight: bold;
+  border: 2px solid var(--black);
+}
+
 .pagination__button {
-	display: flex;
-	justify-content: center;
-	margin-bottom: 30px;
-	cursor: pointer;
-	background-color: var(--grey);
-	width: 250px;
-	margin-right: 40px;
+  cursor: pointer;
+  margin: 0 10px;
+	font-size: 1.2em;
 }
 
 .footer {

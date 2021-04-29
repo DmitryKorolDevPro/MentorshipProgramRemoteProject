@@ -2,12 +2,12 @@ let currentList: null | object[] = null;
 let currentPage: number = 1;
 const itemsPerPage: number = 5;
 
-const contentContainer = document.querySelector('#content');
-const itemsContainer = document.querySelector('#list');
-const pagination = document.querySelector('#pagination');
-const currentPageText = document.querySelector('#num');
-const buttonNext = document.querySelector('#next');
-const buttonPrev = document.querySelector('#prev');
+const contentContainer: HTMLDivElement | null = document.querySelector('#content');
+const itemsContainer: HTMLUListElement | null = document.querySelector('#list');
+const pagination: HTMLDivElement | null = document.querySelector('#pagination');
+const currentPageText: HTMLSpanElement | null = document.querySelector('#num');
+const buttonNext: HTMLButtonElement | null = document.querySelector('#next');
+const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
 
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
@@ -23,12 +23,12 @@ document.body.onload = async () => {
 async function getDataFromBE(page: number): Promise<void> {
   try {
     addSpinner();
-    (await fetch( `http://localhost:5500/api/sneakers/${page}`))
-    .json()
-    .then(list => {
-      currentList = list;
-      updateContent();
-    })
+    (await fetch(`http://localhost:5500/api/sneakers/${page}`))
+      .json()
+      .then(list => {
+        currentList = list;
+        updateContent();
+      })
   } catch (error) {
     errorOccurred(error);
   }
@@ -48,55 +48,78 @@ function removeSpinner(): void {
   }
 }
 
+type listItem = {
+  name: string;
+  description: string;
+  url: string;
+  price: number;
+}
+
 function updateContent(): void {
   if (currentList === null || (currentList.length > 0 && currentList.length > itemsPerPage)) {
     errorOccurred();
     return;
   }
 
-    for (let item of currentList) {
-        const li = document.createElement('li');
-        li.classList.add('align-center', 'column', 'list__item', 'card');
+  for (let i = 0; i < currentList.length; i++) {
+    const item = currentList[i];
 
-        const title = document.createElement('span');
-        title.classList.add('card__title');
-        title.textContent = item.name;
-
-        const wrapper = document.createElement('div');
-        wrapper.classList.add('wrapper');
-
-        const img = new Image();
-
-        new Promise((resolve, reject) => {
-          img.onload = () => resolve(img);
-          img.onerror = reject()
-        })
-        .then(() => {
-          img.classList.add('card__img');
-          img.src = item.url;
-          img.alt = ('Image of ' + item.name);
-        })
-
-        const info = document.createElement('div');
-        info.classList.add('wrapper', 'info');
-
-        const descrip = document.createElement('p');
-        descrip.classList.add('card__description');
-        descrip.textContent = item.descr.split(". ")[0] + ".";
-
-        const price = document.createElement('span');
-        price.classList.add('card__price');
-        price.textContent = item.price + "UAH.";
-
-
-        info.append(descrip, price);
-        wrapper.append(img, info);
-        li.append(title, wrapper);
-        itemsContainer.appendChild(li);
+    if (i === currentList.length - 1) {
+      // If item is the last one, deletes the spinner
+      createNewItem(item, true);
+      return;
     }
 
-    removeSpinner();
-    itemsContainer.style.display = 'flex';
+    createNewItem(item, false);
+  }
+}
+
+function createNewItem(item: listItem, isLast:boolean) {
+  const li = document.createElement('li');
+  li.classList.add('align-center', 'column', 'list__item', 'card');
+
+  const title = document.createElement('span');
+  title.classList.add('card__title');
+  title.textContent = item.name;
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('wrapper');
+
+  const img = new Image();
+  
+  img.onload = function() {
+    img.classList.add('card__img');
+    img.alt = ('Image of ' + item.name);
+   
+    const info = document.createElement('div');
+    info.classList.add('wrapper', 'info');
+  
+    const descrip = document.createElement('p');
+    descrip.classList.add('card__description');
+    descrip.textContent = item.descr.split(". ")[0] + ".";
+  
+    const price = document.createElement('span');
+    price.classList.add('card__price');
+    price.textContent = item.price + "UAH.";
+  
+  
+    info.append(descrip, price);
+    wrapper.append(img, info);
+    li.append(title, wrapper);
+    itemsContainer.appendChild(li);
+
+    if (isLast) {
+      removeSpinner();
+      displayPagination();
+      itemsContainer.style.display = 'flex';
+    }
+  }
+
+  img.src = item.url;
+}
+
+function displayPagination() {
+  pagination.style.display = 'flex';
 }
 
 function errorOccurred(error = '') {
@@ -112,17 +135,17 @@ function errorOccurred(error = '') {
 // }
 
 function nextPage() {
-    // if (currentPage < fromBE lenght) {
-    //     currentPage++;
-    //     updateContent(currentPage);
-    // }
+  // if (currentPage < fromBE lenght) {
+  //     currentPage++;
+  //     updateContent(currentPage);
+  // }
 }
 
 function prevPage() {
-    // if (currentPage > 1) {
-    //     currentPage--;
-    //     updateContent(currentPage);
-    // }
+  // if (currentPage > 1) {
+  //     currentPage--;
+  //     updateContent(currentPage);
+  // }
 }
 
 /* EXAMPLE OF THE CARD:
