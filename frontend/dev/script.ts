@@ -9,6 +9,13 @@ const currentPageText: HTMLSpanElement | null = document.querySelector('#num');
 const buttonNext: HTMLButtonElement | null = document.querySelector('#next');
 const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
 
+type listItem = {
+  name: string;
+  description: string;
+  url: string;
+  price: number;
+}
+
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
   buttonPrev.addEventListener('click', prevPage);
@@ -16,18 +23,16 @@ if (buttonNext && buttonPrev) {
   console.error('Button PREVIOUS or button NEXT is missing...');
 }
 
-document.body.onload = async () => {
-  getDataFromBE(currentPage);
-}
-
-async function getDataFromBE(page: number): Promise<void> {
+async function getDataFromBE(page: number) {
   try {
-    addSpinner();
-    (await fetch(`http://localhost:5500/api/sneakers/${page}`))
+    return (await fetch(`http://localhost:5500/api/sneakers/${page}`))
       .json()
       .then(list => {
-        currentList = list;
-        updateContent();
+        if (list.length === 0) {
+          throw new Error('Error. Stock is empty');
+        }
+
+        return list;
       })
   } catch (error) {
     errorOccurred(error);
@@ -48,17 +53,11 @@ function removeSpinner(): void {
   }
 }
 
-type listItem = {
-  name: string;
-  description: string;
-  url: string;
-  price: number;
-}
-
 function updateContent(): void {
-  if (currentList === null || (currentList.length > 0 && currentList.length > itemsPerPage)) {
+  itemsContainer.innerHTML = '';
+
+  if (currentList === null) {
     errorOccurred();
-    return;
   }
 
   for (let i = 0; i < currentList.length; i++) {
@@ -69,12 +68,11 @@ function updateContent(): void {
       createNewItem(item, true);
       return;
     }
-
     createNewItem(item, false);
   }
 }
 
-function createNewItem(item: listItem, isLast:boolean) {
+function createNewItem(item: listItem, isLast: boolean) {
   const li = document.createElement('li');
   li.classList.add('align-center', 'column', 'list__item', 'card');
 
@@ -86,23 +84,23 @@ function createNewItem(item: listItem, isLast:boolean) {
   wrapper.classList.add('wrapper');
 
   const img = new Image();
-  
-  img.onload = function() {
+
+  img.onload = function () {
     img.classList.add('card__img');
     img.alt = ('Image of ' + item.name);
-   
+
     const info = document.createElement('div');
     info.classList.add('wrapper', 'info');
-  
+
     const descrip = document.createElement('p');
     descrip.classList.add('card__description');
     descrip.textContent = item.descr.split(". ")[0] + ".";
-  
+
     const price = document.createElement('span');
     price.classList.add('card__price');
     price.textContent = item.price + "UAH.";
-  
-  
+
+
     info.append(descrip, price);
     wrapper.append(img, info);
     li.append(title, wrapper);
@@ -118,6 +116,7 @@ function createNewItem(item: listItem, isLast:boolean) {
   img.src = item.url;
 }
 
+
 function displayPagination() {
   pagination.style.display = 'flex';
 }
@@ -130,11 +129,46 @@ function errorOccurred(error = '') {
   }
 }
 
-// function numPages() {
-//     return Math.ceil(list.length / itemOnPage);
-// }
-
 function nextPage() {
+  if (currentList.length > 0) {
+    currentPage++;
+    getDataAndUpdatePage();
+  }
+}
+
+function prevPage() {
+  if (currentPage > 1) {
+    currentPage--;
+    getDataAndUpdatePage();
+  }
+}
+
+
+function updatePageNum() {
+  currentPageText.textContent = currentPage;
+}
+
+async function getDataAndUpdatePage() {
+  addSpinner();
+  currentList = await getDataFromBE(currentPage);
+
+  if (currentList.length === 0 || currentList.length > itemsPerPage) {
+    errorOccurred();
+  } else {
+    updateContent();
+  }
+}
+
+getDataAndUpdatePage();
+
+
+
+
+/*
+
+function numPages() {
+    return Math.ceil(list.length / itemOnPage);
+=======
   // if (currentPage < fromBE lenght) {
   //     currentPage++;
   //     updateContent(currentPage);
@@ -148,7 +182,7 @@ function prevPage() {
   // }
 }
 
-/* EXAMPLE OF THE CARD:
+EXAMPLE OF THE CARD:
     <li class="align-center column list__item card">
         <span class="card__title">SLICER Light Coral</span>
 
