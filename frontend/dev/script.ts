@@ -1,21 +1,25 @@
-let currentList = null;
+let currentList: null | object[] = null;
 let currentPage = 1;
-
 const itemPerPage = 5;
+
 const itemsContainer = document.querySelector('#list');
 const currentPageText = document.querySelector('#num');
 const buttonNext = document.querySelector('#next');
 const buttonPrev = document.querySelector('#prev');
 
-buttonNext.addEventListener('click', nextPage);
-buttonPrev.addEventListener('click', prevPage);
+if (buttonNext && buttonPrev) {
+  buttonNext.addEventListener('click', nextPage);
+  buttonPrev.addEventListener('click', prevPage);
+} else {
+  console.error('Button PREVIOUS or button NEXT is missing...');
+}
 
 document.body.onload = () => {
     getDataFromBE(currentPage);
     // updateContent();
 }
 
-async function getDataFromBE(page) {
+async function getDataFromBE(page: number) {
   (await fetch( `http://localhost:5500/api/sneakers/${page}`))
     .json()
     .then(list => {
@@ -25,24 +29,11 @@ async function getDataFromBE(page) {
     });
 }
 
-/*
-    <li class="align-center column list__item card">
-        <span class="card__title">SLICER Light Coral</span>
-
-        <div class="wrapper">
-            <img class="card__img"
-                src="https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true">
-
-            <div class="wrapper info">
-                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                <span class="card__price">1950 грн.</span>
-            </div>
-        </div>
-    </li>
-*/
-
 function updateContent() {
-    // itemsContainter.innerHTML = '';
+  if (currentList === null || currentList.length === 0) {
+    errorOccurred();
+    return;
+  }
 
     // TODO: LIST LENGTH MUST BE 5. CHECK
     // TODO: LIST LENGTH MUST BE > 0. CHECK itemsContainter.innerHTML = 'Sorry, stock is empty :(';
@@ -82,6 +73,15 @@ function updateContent() {
         itemsContainer.appendChild(li);
     }
 }
+
+function errorOccurred() {
+  console.error('Cannot load and display items.')
+
+  if (itemsContainer) {
+    itemsContainer.innerHTML = 'Sorry, try again later...';
+  }
+}
+
 // function numPages() {
 //     return Math.ceil(list.length / itemOnPage);
 // }
@@ -99,3 +99,19 @@ function prevPage() {
     //     updateContent(currentPage);
     // }
 }
+
+/* EXAMPLE OF THE CARD:
+    <li class="align-center column list__item card">
+        <span class="card__title">SLICER Light Coral</span>
+
+        <div class="wrapper">
+            <img class="card__img"
+                src="https://github.com/exORYON/db/blob/main/119905085_323766932189419_4890343778692013862_n.jpg?raw=true">
+
+            <div class="wrapper info">
+                <p class="card__description">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                <span class="card__price">1950 грн.</span>
+            </div>
+        </div>
+    </li>
+*/

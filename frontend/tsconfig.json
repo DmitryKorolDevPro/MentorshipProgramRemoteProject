@@ -10,6 +10,6 @@
     "outDir": "./prod/"
   },
   "include": [
-    "./js/*.ts"
+    "./dev/*.ts"
   ]
 }
