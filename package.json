@@ -1,14 +1,12 @@
 {
-  "name": "--",
+  "name": "e-shop",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
   "type": "module",
   "scripts": {
     "backend-prod": "tsc -p backend/tsconfig.json && node backend/prod/app.js",
     "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run backend-prod\"",
-    "frontend-prod": "tsc -p frontend/tsconfig.json && node frontend/prod/app.js",
-    "frontend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec \"npm run frontend-prod\""
+    "frontend-prod": "tsc -p frontend/tsconfig.json",
+    "frontend-dev": "tsc -p frontend/tsconfig.json --watch"
   },
   "repository": {
     "type": "git",

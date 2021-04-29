@@ -11,14 +11,18 @@ buttonNext.addEventListener('click', nextPage);
 buttonPrev.addEventListener('click', prevPage);
 
 document.body.onload = () => {
-    getDataFromBE();
-    updateContent();
+    getDataFromBE(currentPage);
+    // updateContent();
 }
 
-async function getDataFromBE() {
-    let response = await fetch(`http://127.0.0.1:5500/api/sneakers/${currentPage}`)
-    response.json()
-        .then(data => console.log(data));
+async function getDataFromBE(page) {
+  (await fetch( `http://localhost:5500/api/sneakers/${page}`))
+    .json()
+    .then(list => {
+      currentList = list;
+      console.log(currentList);
+      updateContent();
+    });
 }
 
 /*

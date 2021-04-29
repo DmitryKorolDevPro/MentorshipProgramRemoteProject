@@ -9,5 +9,5 @@ app.use(cors())
 app.use('/', router);
 
 app.listen(port, () => {
-  console.log(`App is working at http://localhost:${port}.`)
+  console.log(`App is working at http://localhost:${port}/api/sneakers`);
 });
