@@ -1,5 +1,5 @@
 let currentList: object[] = [];
-let currentPage: number = 5;
+let currentPage: number = 1;
 const itemsPerPage: number = 5;
 
 const contentContainer: HTMLDivElement | null = document.querySelector('#content');
@@ -143,13 +143,13 @@ function hideCatalog(): void {
   }
 }
 
-function showPagination():void {
+function showPagination(): void {
   if (pagination) {
     pagination.style.display = 'flex';
   }
 }
 
-function hidePagination():void {
+function hidePagination(): void {
   if (pagination) {
     pagination.style.display = 'none';
   }
@@ -189,13 +189,13 @@ async function updatePaginationButtons() {
   } else {
     buttonPrev.disabled = true;
   }
-} 
+}
 
-async function nextPageExists(page: number):Promise<boolean> {
+async function nextPageExists(page: number): Promise<boolean> {
   try {
     return (await fetch(`http://localhost:5500/api/sneakers/${page}`))
       .json()
-      .then(list => { 
+      .then(list => {
         if (list.length === 0) {
           return false;
         } else {
