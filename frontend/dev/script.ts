@@ -11,7 +11,7 @@ const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
 
 type listItem = {
   name: string;
-  description: string;
+  descr: string;
   url: string;
   price: number;
 }
@@ -63,7 +63,7 @@ function updateCatalog(): void {
   itemsContainer.innerHTML = '';
 
   for (let i = 0; i < currentList.length; i++) {
-    const item = currentList[i];
+    const item:any = currentList[i];
 
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
@@ -105,7 +105,10 @@ function createNewItem(item: listItem, isLast: boolean) {
     info.append(descrip, price);
     wrapper.append(img, info);
     li.append(title, wrapper);
-    itemsContainer.appendChild(li);
+
+    if (itemsContainer) {
+      itemsContainer.appendChild(li);
+    }
 
     if (isLast) {
       hideSpinner();
@@ -173,11 +176,15 @@ function prevPage(): void {
 
 function updatePageNum(): void {
   if (currentPageSpan) {
-    currentPageSpan.textContent = currentPage;
+    currentPageSpan.textContent = String(currentPage);
   }
 }
 
-async function updatePaginationButtons() {
+async function updatePaginationButtons(): Promise<void> {
+  if (!buttonNext || !buttonPrev) {
+    return;
+  }
+  
   if (await nextPageExists(currentPage + 1)) {
     buttonNext.disabled = false;
   } else {
@@ -207,7 +214,7 @@ async function nextPageExists(page: number): Promise<boolean> {
   }
 }
 
-function errorOccurred(error = '') {
+function errorOccurred(error = ''): void {
   console.error(`Cannot load and display items. ${error}`);
 
   if (contentContainer) {

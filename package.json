@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "npm run backend-start && npm run frontend-start",
+    "start": "npm run build && start npm run backend-start && start npm run frontend-start",
+    "build": "tsc -p frontend/tsconfig.json && tsc -p backend/tsconfig.json",
     "backend-start": "node backend/prod/app.js",
     "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec npm run backend-start",
     "frontend-start": "cd frontend && live-server",

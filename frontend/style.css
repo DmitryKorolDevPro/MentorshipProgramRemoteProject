@@ -1,99 +1,102 @@
 :root {
-	--headerAndFooterHeight: 90px;
-	--black: #1c1c1c;
-	--white: #fafaff;
-	--grey: #eef0f2;
+  --headerAndFooterHeight: 90px;
+  --black: #1c1c1c;
+  --white: #fafaff;
+  --grey: #eef0f2;
 }
 
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-	font-family: 'Montserrat', sans-serif;
+  font-family: 'Montserrat', sans-serif;
   font-size: 15px;
-	min-height: 100vh;
-	background-color: var(--grey);
+  min-height: 100vh;
+  background-color: var(--grey);
 }
 
 img {
-	max-width: 50%;
+  max-width: 50%;
 }
 
 .align-center {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .column {
-	flex-direction: column;
+  flex-direction: column;
 }
 
-.header, .footer {
-	font-size: 1.5em;
-	width: 100%;
-	height: var(--headerAndFooterHeight);
+.header,
+.footer {
+  font-size: 1.5em;
+  width: 100%;
+  height: var(--headerAndFooterHeight);
 }
 
 .header {
-	position: sticky;
-	top: 0;
-	background: var(--white);
-	border-bottom: 2px solid var(--black);
+  position: sticky;
+  top: 0;
+  background: var(--white);
+  border-bottom: 2px solid var(--black);
 }
 
 .main {
-	min-height: calc(100vh - (var(--headerAndFooterHeight) * 2));
+  min-height: calc(100vh - (var(--headerAndFooterHeight) * 2));
 }
 
 #list {
-	list-style-type: none;
+  list-style-type: none;
 }
 
 .list__item:first-child {
-	margin-top: 30px;
+  margin-top: 30px;
 }
 
 .list__item {
-	background-color: var(--white);
-	border: 1px solid var(--black);
-	padding: 15px;
-	width: 65%;
-	align-items: flex-start;
-	margin: 15px 0;
+  background-color: var(--white);
+  border: 1px solid var(--black);
+  padding: 15px;
+  width: 65%;
+  align-items: flex-start;
+  margin: 15px 0;
   cursor: pointer;
 }
 
 .wrapper {
-	display: flex;
+  display: flex;
 }
 
 .info {
-	padding-left: 10px;
-	flex-direction: column;
+  padding-left: 10px;
+  flex-direction: column;
 }
 
 .card__title {
-	padding-bottom: 10px;
+  padding-bottom: 10px;
 }
 
 .card__description {
-	font-size: 1.5em;
+  font-size: 1.5em;
 }
 
-.card__price, .card__title {
-	font-weight: 800;
-	font-size: 3em;
+.card__price,
+.card__title {
+  font-weight: 800;
+  font-size: 3em;
 }
 
 .card__price {
-	color: #1c1c1ccb;
+  color: #1c1c1ccb;
 }
 
-.pagination, #list {
+.pagination,
+#list {
   display: none;
 }
 
@@ -117,13 +120,13 @@ img {
 .pagination__button {
   cursor: pointer;
   margin: 0 10px;
-	font-size: 1.2em;
+  font-size: 1.2em;
   border: 0;
   background-color: transparent;
 }
 
 .footer {
-	background: var(--black);
+  background: var(--black);
   color: var(--white);
 }
 
