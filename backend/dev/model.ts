@@ -1,7 +1,7 @@
 import { promises as fsp } from 'fs';
 
 interface DatabaseModel {
-  getList(): object[] | object;
+  getList(): Promise<object[]>;
 }
 
 export class Model implements DatabaseModel {

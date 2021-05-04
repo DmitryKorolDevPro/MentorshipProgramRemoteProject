@@ -11,7 +11,7 @@ router.get('/api/sneakers', async (req, res) => {
 });
 
 router.get('/api/sneakers/:page', async (req, res) => {
-  let response: ResponseObj = await controller.getFiveItems(req.params.page);
+  let response: ResponseObj = await controller.getItems(req.params.page);
   res.status(response.statusCode).send(response.result);
 });
 

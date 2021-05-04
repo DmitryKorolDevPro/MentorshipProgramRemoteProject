@@ -3,12 +3,9 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "npm run build && start npm run backend-start && start npm run frontend-start",
+    "start": "start node backend/prod/app.js && cd frontend && start live-server",
     "build": "tsc -p frontend/tsconfig.json && tsc -p backend/tsconfig.json",
-    "backend-start": "node backend/prod/app.js",
-    "backend-dev": "node node_modules/nodemon/bin/nodemon.js -e ts --exec npm run backend-start",
-    "frontend-start": "cd frontend && live-server",
-    "frontend-dev": "tsc -p frontend/tsconfig.json --watch"
+    "dev": "start tsc -p frontend/tsconfig.json --watch && start tsc -p backend/tsconfig.json --watch && cd frontend && start live-server && cd .. && node node_modules/nodemon/bin/nodemon.js -e ts --exec node backend/prod/app.js"
   },
   "repository": {
     "type": "git",

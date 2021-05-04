@@ -1,7 +1,7 @@
 import { Model } from './model.js';
 const model = new Model();
 
-export type ResponseObj = {
+export interface ResponseObj {
   statusCode: number,
   result: object[]
 }
@@ -26,7 +26,7 @@ export class Controller {
     return response;
   }
 
-  async getFiveItems(page: any):Promise<ResponseObj> {
+  async getItems(req: string):Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
       result: []
@@ -37,13 +37,14 @@ export class Controller {
     const itemsPerPage = 5;
     const maxPageNumber = Math.ceil(list.length / itemsPerPage);
 
-    page = parseInt(page);
+    let page:number = parseInt(req);
+    
     if (isNaN(page) || page < 1 || page > maxPageNumber) {
       response.statusCode = 400;
       return response;
     }
 
-    list = list.splice(--page * itemsPerPage, 5);
+    list = list.splice(((page - 1) * itemsPerPage), itemsPerPage);
     response.result = list.filter(item => item !== undefined);
 
     return response;
