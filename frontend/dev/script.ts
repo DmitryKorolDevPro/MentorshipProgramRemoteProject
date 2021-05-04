@@ -1,5 +1,6 @@
 let currentList: object[] = [];
 let currentPage: number = 1;
+//let numberOfPage: number = 0;
 const itemsPerPage: number = 5;
 
 const contentContainer: HTMLDivElement | null = document.querySelector('#content');
@@ -29,7 +30,7 @@ async function getDataAndUpdatePage(): Promise<void> {
   currentList = await getDataFromBE(currentPage);
 
   if (currentList.length === 0 || currentList.length > itemsPerPage) {
-    errorOccurred();
+    catchError();
   } else {
     updatePageNum();
     updateCatalog();
@@ -50,20 +51,20 @@ async function getDataFromBE(page: number) {
         return list;
       })
   } catch (error) {
-    errorOccurred(error);
+    catchError(error);
   }
 }
 
 function updateCatalog(): void {
   if (!currentList || !itemsContainer) {
-    errorOccurred();
+    catchError();
     return;
   }
 
   itemsContainer.innerHTML = '';
 
   for (let i = 0; i < currentList.length; i++) {
-    const item:any = currentList[i];
+    const item: any = currentList[i];
 
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
@@ -184,7 +185,7 @@ async function updatePaginationButtons(): Promise<void> {
   if (!buttonNext || !buttonPrev) {
     return;
   }
-  
+
   if (await nextPageExists(currentPage + 1)) {
     buttonNext.disabled = false;
   } else {
@@ -214,7 +215,7 @@ async function nextPageExists(page: number): Promise<boolean> {
   }
 }
 
-function errorOccurred(error = ''): void {
+function catchError(error = ''): void {
   console.error(`Cannot load and display items. ${error}`);
 
   if (contentContainer) {
