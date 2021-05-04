@@ -15,4 +15,9 @@ router.get('/api/sneakers/:page', async (req, res) => {
   res.status(response.statusCode).send(response.result);
 });
 
+router.get('/api/sneakers/check/:_page', async (req, res) => {
+  let response: boolean = controller.checkIfPageExists(req.params._page);
+  res.status(200).send(response);
+});
+
 export { router };

@@ -7,7 +7,16 @@ export interface ResponseObj {
 }
 
 export class Controller {
-  async getAllItems():Promise<ResponseObj> {
+  maxPage: number;
+  itemsPerPage: number;
+
+  constructor () {
+    this.itemsPerPage = 5;
+    this.maxPage = 0;
+    this.setMaxPage();
+  };
+
+  async getAllItems(): Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
       result: []
@@ -18,7 +27,7 @@ export class Controller {
     if (!Array.isArray(response.result)) {
       response.statusCode = 500;
     }
-    
+
     if (response.result.length === 0) {
       response.statusCode = 204;
     }
@@ -32,21 +41,35 @@ export class Controller {
       result: []
     }
 
-    let list = (await this.getAllItems()).result;
-
-    const itemsPerPage = 5;
-    const maxPageNumber = Math.ceil(list.length / itemsPerPage);
-
-    let page:number = parseInt(req);
+    let list: object[] = (await this.getAllItems()).result;
+    let page: number = parseInt(req);
     
-    if (isNaN(page) || page < 1 || page > maxPageNumber) {
+    if (this.pageIsNotValid(page)) {
       response.statusCode = 400;
       return response;
     }
 
-    list = list.splice(((page - 1) * itemsPerPage), itemsPerPage);
+    list = list.splice(((page - 1) * this.itemsPerPage), this.itemsPerPage);
     response.result = list.filter(item => item !== undefined);
-
     return response;
+  }
+
+  async setMaxPage(): Promise<void> {
+    const list: object[] = (await this.getAllItems()).result;
+    this.maxPage = Math.ceil(list.length / this.itemsPerPage);
+  }
+
+  checkIfPageExists(req: string): boolean {
+    let page:number = parseInt(req);
+    
+    if (this.pageIsNotValid(page)) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  pageIsNotValid(page: number): boolean {
+    return isNaN(page) || page < 1 || page > this.maxPage;
   }
 }
