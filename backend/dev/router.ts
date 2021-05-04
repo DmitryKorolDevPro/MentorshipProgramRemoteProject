@@ -15,4 +15,8 @@ router.get('/api/sneakers/:page', async (req, res) => {
   res.status(response.statusCode).send(response.result);
 });
 
+router.get('/api/sneakers/:maxpage', async (req, res) => {
+  let response: boolean = await controller.getExistPage(req.params.maxpage);
+  res.status(200).send(response);
+});
 export { router };

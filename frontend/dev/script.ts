@@ -199,17 +199,16 @@ async function updatePaginationButtons(): Promise<void> {
   }
 }
 
-async function nextPageExists(page: number): Promise<boolean> {
+async function nextPageExists(maxpage: number): Promise<boolean> {
   try {
-    return (await fetch(`http://localhost:5500/api/sneakers/${page}`))
-      .json()
-      .then(list => {
-        if (list.length === 0) {
-          return false;
-        } else {
-          return true;
-        }
-      })
+    return (await fetch(`http://localhost:5500/api/sneakers/${maxpage}`)).json();
+    // .then(list => {
+    //   if (list.length === 0) {
+    //     return false;
+    //   } else {
+    //     return true;
+    //   }
+    // })
   } catch (error) {
     return false;
   }

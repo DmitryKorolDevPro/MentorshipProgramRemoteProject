@@ -13,4 +13,9 @@ export class Model implements DatabaseModel {
       console.error(`Not able to receive data from database. ${error}`);
     }
   }
+
+  getItemPerPage() {
+    const itemsinPage = 5;
+    return itemsinPage;
+  }
 }
