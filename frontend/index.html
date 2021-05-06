@@ -4,8 +4,6 @@
 <head>
     <meta charset="utf-8" />
       <title>SLICER e-Shop</title>
-    <meta name="keywords" content="" />
-    <meta name="description" content="" />
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;800&display=swap" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
@@ -13,8 +11,21 @@
 
 <body class="align-center column">
     <header class="align-center header">SLICER</header>
+
       <main class="align-center column main" id="content">
-          <ul class="align-center column" id="list"></ul>
+          <div class="container align-center">
+            <div class="align-center column modal" id="modal">
+              <button class="modal__button" id="close">
+                Close<i class="fas fa-times-circle"></i>
+              </button>
+                <div class="modal__item" id="details"></div>
+              <button class="modal__button" id="add" disabled>
+                Add<i class="fas fa-cart-plus"></i>
+              </button>
+            </div>
+
+            <ul class="align-center column" class="list" id="list"></ul>
+          </div>
 
           <div class="align-center pagination" id="pagination">
             <button class="fas fa-chevron-left pagination__button" id="prev"></button>
@@ -22,6 +33,7 @@
             <button class="fas fa-chevron-right pagination__button" id="next"></button>
           </div>
       </main>
+
     <footer class="align-center footer">
         <small>2021 SLICER ©</small>
     </footer>

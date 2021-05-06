@@ -3,6 +3,8 @@
   --black: #1c1c1c;
   --white: #fafaff;
   --grey: #eef0f2;
+  --thin-border: 2px solid var(--black);
+  --bold-border: 2px solid var(--black);
 }
 
 * {
@@ -16,6 +18,10 @@ body {
   font-size: 15px;
   min-height: 100vh;
   background-color: var(--grey);
+}
+
+button {
+  cursor: pointer;
 }
 
 img {
@@ -43,31 +49,49 @@ img {
   position: sticky;
   top: 0;
   background: var(--white);
-  border-bottom: 2px solid var(--black);
+  border-bottom: var(--bold-border);
+  z-index: 2;
+}
+
+.main, .container {
+  width: 100%;
 }
 
 .main {
   min-height: calc(100vh - (var(--headerAndFooterHeight) * 2));
 }
 
-#list {
+.container {
+  display: flex;
+  padding: 0 15px;
+}
+
+.list {
   list-style-type: none;
+}
+
+.list__item {
+  background-color: var(--white);
+  border: var(--thin-border);
+  padding: 15px;
+  width: 100%;
+  max-width: 800px;
+  align-items: flex-start;
+  margin: 15px 0;
+  cursor: pointer;
+  transition: transform .25s ease;
+  z-index: 1;
 }
 
 .list__item:first-child {
   margin-top: 30px;
 }
 
-.list__item {
-  background-color: var(--white);
-  border: 1px solid var(--black);
-  padding: 15px;
-  width: 65%;
-  align-items: flex-start;
-  margin: 15px 0;
-  cursor: pointer;
+.list__item:hover {
+  transform: scaleX(1.025);
 }
 
+/* <-- USING ON JS ---> */
 .wrapper {
   display: flex;
 }
@@ -95,8 +119,10 @@ img {
   color: #1c1c1ccb;
 }
 
+/* <-- USING ON JS ---> */
+
 .pagination,
-#list {
+.list {
   display: none;
 }
 
@@ -114,11 +140,10 @@ img {
   width: 35px;
   border-radius: 50%;
   font-weight: bold;
-  border: 2px solid var(--black);
+  border: var(--bold-border);
 }
 
 .pagination__button {
-  cursor: pointer;
   margin: 0 10px;
   font-size: 1.2em;
   border: 0;
@@ -144,4 +169,23 @@ img {
   from {
     transform: rotate(360deg);
   }
+}
+
+.modal {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: calc(0vh + var(--headerAndFooterHeight));
+  left: 0;
+  z-index: 3;
+  height: calc(100% - var(--headerAndFooterHeight));
+  background-color: var(--white);
+  width: 35%;
+  justify-content: space-between;
+}
+
+.modal__button {
+  padding: 10px 20px;
+  margin: 15px 0;
+  border: var(--thin-border);
 }

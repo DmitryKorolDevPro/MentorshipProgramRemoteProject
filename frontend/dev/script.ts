@@ -1,5 +1,6 @@
 let currentList: object[] = [];
 let currentPage: number = 1;
+let modalWindowOpened = false;
 const itemsPerPage: number = 5;
 
 const contentContainer: HTMLDivElement | null = document.querySelector('#content');
@@ -8,13 +9,17 @@ const pagination: HTMLDivElement | null = document.querySelector('#pagination');
 const currentPageSpan: HTMLSpanElement | null = document.querySelector('#num');
 const buttonNext: HTMLButtonElement | null = document.querySelector('#next');
 const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
+const modalWindow: HTMLButtonElement | null = document.querySelector('#modal');
+const modalWindowContent: HTMLButtonElement | null = document.querySelector('#details');
 
-type listItem = {
+interface listItem {
   name: string;
   descr: string;
   url: string;
   price: number;
 }
+
+document.body.addEventListener('click', handleClick);
 
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
@@ -67,16 +72,16 @@ function updateCatalog(): void {
 
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
-      createNewItem(item, true);
+      createNewItem(item, i, true);
       return;
     }
-    createNewItem(item, false);
+    createNewItem(item, i, false);
   }
 }
 
-function createNewItem(item: listItem, isLast: boolean) {
+function createNewItem(item: listItem, index: number, isLast: boolean) {
   const li = document.createElement('li');
-  li.classList.add('align-center', 'column', 'list__item', 'card');
+  li.classList.add(`item-№${index}`, 'align-center', 'column', 'list__item', 'card');
 
   const title = document.createElement('span');
   title.classList.add('card__title');
@@ -211,5 +216,36 @@ function catchError(error = ''): void {
 
   if (contentContainer) {
     contentContainer.innerHTML = '<span class="error">Sorry, try again later...</span>';
+  }
+}
+
+function handleClick(event: any) {
+  // find card that was clicked on
+  const clickedOn = event.path.find((el: HTMLElement) => !el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal'));
+
+  // if click was on modal window
+  if (clickedOn && clickedOn.classList.contains('modal') || !modalWindow) {
+    return;
+  }
+
+  // show or hide modal
+  if (clickedOn) {
+    modalWindow.style.display = 'flex';
+    displayItemInModal(clickedOn.classList[0].split('№')[1]);
+  } else {
+    modalWindow.style.display = 'none';
+  }
+}
+
+function displayItemInModal(index: number) {
+  const item = currentList[+index];
+
+  if (modalWindowContent) {
+    modalWindowContent.innerHTML = `
+      <span>${item.name}</span>
+      <span>${item.descr}</span>
+      <span>${item.url}</span>
+      <span>${item.price}</span>
+    `;
   }
 }
