@@ -22,11 +22,6 @@ interface listItem {
 }
 
 document.body.addEventListener('click', handleClick);
-document.body.onload = () => {
-  if (modalWindow) {
-    modalWindow.style.transition = 'var(--default-transition)';
-  }
-}
 
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
@@ -226,7 +221,7 @@ function catchError(error = ''): void {
   }
 }
 
-function handleClick(event: any) {
+async function handleClick(event: any) {
   // find card that was clicked on
   const clickedOn = event.path.find((el: HTMLElement) => !el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal'));
 
@@ -237,26 +232,42 @@ function handleClick(event: any) {
 
   // show or hide modal
   if (clickedOn) {
-    showModalWindow();
-    displayItemInModal(clickedOn.classList[0].split('№')[1]);
+    hideCatalog();
+    hidePagination();
+    showSpinner();
+
+    await displayItemInModal(clickedOn.classList[0].split('№')[1])
+    .then(showModalWindow);
   } else {
     hideModalWindow();
   }
 }
 
-function displayItemInModal(index: number) {
-  const item: any = currentList[+index];
+async function displayItemInModal(index: number) {
+  return new Promise((resolve, reject) => {
+    const item: any = currentList[+index];
 
-  if (modalWindowContent) {
-    modalWindowContent.innerHTML = `
-      <img src="${item.url}" alt="Image of ${item.name}" class="card__image">
-      <div class="card__info align-center column">
-        <span class="card__title">${item.name}</span>
-        <span class="card__description">${item.descr}</span>
-        <span class="card__price">${item.price} UAH.</span>
-      </div>
-    `;
-  }
+    if (modalWindowContent) {
+      modalWindowContent.innerHTML = '';
+  
+      const image = new Image();
+      image.classList.add('card__image');
+      image.alt = `Image of ${item.name}`;
+      image.onload = () => {
+        resolve(true);
+      }
+      image.src = item.url;
+  
+      modalWindowContent.appendChild(image);
+      modalWindowContent.insertAdjacentHTML('beforeend',
+      `<div class="card__info align-center column">
+          <span class="card__title">${item.name}</span>
+          <span class="card__description">${item.descr}</span>
+          <span class="card__price">${item.price} UAH.</span>
+        </div>
+      `);
+    }
+  });
 }
 
 if (modalButtonAdd && modalButtonClose) {
@@ -264,8 +275,15 @@ if (modalButtonAdd && modalButtonClose) {
   modalButtonClose.addEventListener('click', hideModalWindow);
 }
 
-function addItemToTheCart() {
-  alert('Will be added soon!');
+document.body.onload = () => {
+  if (modalWindow) {
+    modalWindow.style.transition = 'var(--default-transition)';
+    modalWindow.addEventListener('transitionend', () => {
+      hideSpinner();
+      showPagination();
+      showCatalog();
+    })
+  }
 }
 
 function showModalWindow() {
@@ -282,4 +300,8 @@ function hideModalWindow() {
   if (modalWindow) {
     modalWindow.style.transform = 'scale(0)';
   }
+}
+
+function addItemToTheCart() {
+  alert('Will be added soon!');
 }

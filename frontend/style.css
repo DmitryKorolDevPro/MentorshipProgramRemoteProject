@@ -192,6 +192,8 @@ img {
   height: var(--headerAndFooterHeight);
   background-color: var(--black);
   width: 100%;
+  transition-delay: .25s;
+  transition: all var(--default-transition);
 }
 
 .modal .card {
@@ -206,7 +208,13 @@ img {
 
 .modal .card__image {
   width: 100%;
+  max-width: 550px;
   margin-right: 25px;
+  object-fit: contain;
+}
+
+.modal .card__description {
+  max-width: 450px;
 }
  
 #close {
