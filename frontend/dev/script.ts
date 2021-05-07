@@ -22,6 +22,11 @@ interface listItem {
 }
 
 document.body.addEventListener('click', handleClick);
+document.body.onload = () => {
+  if (modalWindow) {
+    modalWindow.style.transition = 'var(--default-transition)';
+  }
+}
 
 if (buttonNext && buttonPrev) {
   buttonNext.addEventListener('click', nextPage);
@@ -235,7 +240,7 @@ function handleClick(event: any) {
     showModalWindow();
     displayItemInModal(clickedOn.classList[0].split('№')[1]);
   } else {
-    closeModalWindow();
+    hideModalWindow();
   }
 }
 
@@ -244,21 +249,23 @@ function displayItemInModal(index: number) {
 
   if (modalWindowContent) {
     modalWindowContent.innerHTML = `
-      <span>${item.name}</span>
-      <span>${item.descr}</span>
-      <span>${item.url}</span>
-      <span>${item.price}</span>
+      <img src="${item.url}" alt="Image of ${item.name}" class="card__image">
+      <div class="card__info align-center column">
+        <span class="card__title">${item.name}</span>
+        <span class="card__description">${item.descr}</span>
+        <span class="card__price">${item.price} UAH.</span>
+      </div>
     `;
   }
 }
 
 if (modalButtonAdd && modalButtonClose) {
   modalButtonAdd.addEventListener('click', addItemToTheCart);
-  modalButtonClose.addEventListener('click', closeModalWindow);
+  modalButtonClose.addEventListener('click', hideModalWindow);
 }
 
 function addItemToTheCart() {
-  console.log('button is working');
+  alert('Will be added soon!');
 }
 
 function showModalWindow() {
@@ -269,7 +276,7 @@ function showModalWindow() {
   }
 }
 
-function closeModalWindow() {
+function hideModalWindow() {
   document.body.style.overflow = 'auto';
 
   if (modalWindow) {

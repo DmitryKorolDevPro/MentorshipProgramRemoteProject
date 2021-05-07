@@ -3,9 +3,12 @@
   --black: #1c1c1c;
   --white: #fafaff;
   --grey: #eef0f2;
-  --dark-grey: #DADDD8;
+  --success: #52c41a;
+  --success-darker: #42bd0e;
   --thin-border: 2px solid var(--black);
   --bold-border: 2px solid var(--black);
+  --main-font: 'Montserrat', sans-serif;
+  --default-transition: .25s ease;
 }
 
 * {
@@ -15,7 +18,7 @@
 }
 
 body {
-  font-family: 'Montserrat', sans-serif;
+  font-family: var(--main-font);
   font-size: 15px;
   min-height: 100vh;
   background-color: var(--grey);
@@ -33,6 +36,10 @@ img {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+#add, #close {
+  transition: var(--default-transition);
 }
 
 .column {
@@ -81,7 +88,7 @@ img {
   align-items: flex-start;
   margin: 15px 0;
   cursor: pointer;
-  transition: transform .25s ease;
+  transition: transform var(--default-transition);
   z-index: 1;
 }
 
@@ -169,8 +176,6 @@ img {
 
 .modal {
   transform: scale(0);
-  transition: .25s ease;
-  /* display: none; */
   overflow: hidden;
   position: fixed;
   top: calc(0vh + var(--headerAndFooterHeight));
@@ -181,11 +186,53 @@ img {
   width: 100%;
   justify-content: space-between;
   background-color: var(--grey);
-  border-bottom: var(--headerAndFooterHeight) solid var(--black);
 }
 
-.modal__button {
-  padding: 10px 20px;
-  margin: 15px 0;
-  border: var(--thin-border);
+.modal__footer {
+  height: var(--headerAndFooterHeight);
+  background-color: var(--black);
+  width: 100%;
+}
+
+.modal .card {
+  display: flex;
+  margin: 0 25px;
+}
+
+.modal .card__info {
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.modal .card__image {
+  width: 100%;
+  margin-right: 25px;
+}
+ 
+#close {
+  align-self: flex-end;
+  border: none;
+  height: auto;
+  width: auto;
+  font-size: 2em;
+  margin: 25px;
+}
+
+#close:hover {
+  transform: scale(1.2);
+}
+
+#add {
+  font-family: var(--main-font);
+  background-color: var(--success-darker);
+  border-radius: 10px;
+  margin: 25px 0;
+  padding: 15px 90px;
+  border: 2px solid rgba(0, 0, 0, 0.007);
+  font-size: 1.1em;
+}
+
+#add:hover {
+  transform: scaleX(1.1);
+  background-color: var(--success);
 }
