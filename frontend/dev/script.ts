@@ -9,8 +9,10 @@ const pagination: HTMLDivElement | null = document.querySelector('#pagination');
 const currentPageSpan: HTMLSpanElement | null = document.querySelector('#num');
 const buttonNext: HTMLButtonElement | null = document.querySelector('#next');
 const buttonPrev: HTMLButtonElement | null = document.querySelector('#prev');
-const modalWindow: HTMLButtonElement | null = document.querySelector('#modal');
-const modalWindowContent: HTMLButtonElement | null = document.querySelector('#details');
+const modalButtonClose: HTMLButtonElement | null = document.querySelector('#close');
+const modalButtonAdd: HTMLButtonElement | null = document.querySelector('#add');
+const modalWindow: HTMLDivElement | null = document.querySelector('#modal');
+const modalWindowContent: HTMLDivElement | null = document.querySelector('#details');
 
 interface listItem {
   name: string;
@@ -230,15 +232,15 @@ function handleClick(event: any) {
 
   // show or hide modal
   if (clickedOn) {
-    modalWindow.style.display = 'flex';
+    showModalWindow();
     displayItemInModal(clickedOn.classList[0].split('№')[1]);
   } else {
-    modalWindow.style.display = 'none';
+    closeModalWindow();
   }
 }
 
 function displayItemInModal(index: number) {
-  const item = currentList[+index];
+  const item: any = currentList[+index];
 
   if (modalWindowContent) {
     modalWindowContent.innerHTML = `
@@ -247,5 +249,30 @@ function displayItemInModal(index: number) {
       <span>${item.url}</span>
       <span>${item.price}</span>
     `;
+  }
+}
+
+if (modalButtonAdd && modalButtonClose) {
+  modalButtonAdd.addEventListener('click', addItemToTheCart);
+  modalButtonClose.addEventListener('click', closeModalWindow);
+}
+
+function addItemToTheCart() {
+  console.log('button is working');
+}
+
+function showModalWindow() {
+  document.body.style.overflow = 'hidden';
+
+  if (modalWindow) {
+    modalWindow.style.transform = 'scale(1)';
+  }
+}
+
+function closeModalWindow() {
+  document.body.style.overflow = 'auto';
+
+  if (modalWindow) {
+    modalWindow.style.transform = 'scale(0)';
   }
 }

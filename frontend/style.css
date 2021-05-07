@@ -3,6 +3,7 @@
   --black: #1c1c1c;
   --white: #fafaff;
   --grey: #eef0f2;
+  --dark-grey: #DADDD8;
   --thin-border: 2px solid var(--black);
   --bold-border: 2px solid var(--black);
 }
@@ -43,12 +44,13 @@ img {
   font-size: 1.5em;
   width: 100%;
   height: var(--headerAndFooterHeight);
+  background: var(--black);
+  color: var(--white);
 }
 
 .header {
   position: sticky;
   top: 0;
-  background: var(--white);
   border-bottom: var(--bold-border);
   z-index: 2;
 }
@@ -118,7 +120,6 @@ img {
 .card__price {
   color: #1c1c1ccb;
 }
-
 /* <-- USING ON JS ---> */
 
 .pagination,
@@ -150,11 +151,6 @@ img {
   background-color: transparent;
 }
 
-.footer {
-  background: var(--black);
-  color: var(--white);
-}
-
 .error {
   font-weight: 300;
   font-size: 1.5em;
@@ -172,7 +168,9 @@ img {
 }
 
 .modal {
-  display: none;
+  transform: scale(0);
+  transition: .25s ease;
+  /* display: none; */
   overflow: hidden;
   position: fixed;
   top: calc(0vh + var(--headerAndFooterHeight));
@@ -180,8 +178,10 @@ img {
   z-index: 3;
   height: calc(100% - var(--headerAndFooterHeight));
   background-color: var(--white);
-  width: 35%;
+  width: 100%;
   justify-content: space-between;
+  background-color: var(--grey);
+  border-bottom: var(--headerAndFooterHeight) solid var(--black);
 }
 
 .modal__button {
