@@ -1,10 +1,11 @@
-import { view } from './view.js';
+import { ListItem, view } from './view.js';
 
 let currentList: object[] = [];
 let currentPage: number = 1;
-let modalWindowOpened = false;
 const itemsPerPage: number = 5;
 const hostName: string = `http://localhost:5500`;
+
+document.body.addEventListener('click', handleClick);
 
 if (view.buttonNext && view.buttonPrev) {
   view.buttonNext.addEventListener('click', nextPage);
@@ -47,6 +48,7 @@ function updateCatalog(): void {
     view.catchError();
     return;
   }
+
   view.itemsContainer.innerHTML = '';
 
   for (let i = 0; i < currentList.length; i++) {
@@ -54,11 +56,57 @@ function updateCatalog(): void {
 
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
-      view.createNewItem(item, true);
+      createNewItem(item, i, true);
       return;
     }
-    view.createNewItem(item, false);
+    createNewItem(item, i, false);
   }
+}
+
+function createNewItem(item: ListItem, index: number, isLast: boolean) {
+  const li = document.createElement('li');
+  li.classList.add(`item-№${index}`, 'align-center', 'column', 'list__item', 'card');
+
+  const title = document.createElement('span');
+  title.classList.add('card__title');
+  title.textContent = item.name;
+
+  const wrapper = document.createElement('div');
+  wrapper.classList.add('wrapper');
+
+  const img = new Image();
+
+  img.onload = function () {
+    img.classList.add('card__img');
+    img.alt = ('Image of ' + item.name);
+
+    const info = document.createElement('div');
+    info.classList.add('wrapper', 'info');
+
+    const descrip = document.createElement('p');
+    descrip.classList.add('card__description');
+    descrip.textContent = item.descr.split(". ")[0] + ".";
+
+    const price = document.createElement('span');
+    price.classList.add('card__price');
+    price.textContent = item.price + "UAH.";
+
+    info.append(descrip, price);
+    wrapper.append(img, info);
+    li.append(title, wrapper);
+
+    if (view.itemsContainer) {
+      view.itemsContainer.appendChild(li);
+    }
+
+    if (isLast) {
+      view.hideSpinner();
+      view.showCatalog();
+      view.showPagination();
+    }
+  }
+
+  img.src = item.url;
 }
 
 function nextPage(): void {
@@ -102,12 +150,97 @@ async function updatePaginationButtons(): Promise<void> {
 async function nextPageExists(page: number): Promise<boolean> {
   try {
     return (await fetch(`${hostName}/api/sneakers/check/${page}`))
-    .json()
-    .then(
-      page => {
-        return page.exists;
-      });
+      .json()
+      .then(
+        page => {
+          return page.exists;
+        });
   } catch (error) {
     return false;
   }
+}
+
+async function handleClick(event: any) {
+  // find card that was clicked on
+  const clickedOn = event.path.find((el: HTMLElement) => !el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal'));
+
+  // if click was on modal window
+  if (clickedOn && clickedOn.classList.contains('modal') || !view.modalWindow) {
+    return;
+  }
+
+  // show or hide modal
+  if (clickedOn) {
+    view.hideCatalog();
+    view.hidePagination();
+    view.showSpinner();
+
+    await displayItemInModal(clickedOn.classList[0].split('№')[1])
+      .then(showModalWindow);
+  } else {
+    hideModalWindow();
+  }
+}
+
+async function displayItemInModal(index: number) {
+  return new Promise((resolve, reject) => {
+    const item: any = currentList[+index];
+
+    if (view.modalWindowContent) {
+      view.modalWindowContent.innerHTML = '';
+
+      const image = new Image();
+      image.classList.add('card__image');
+      image.alt = `Image of ${item.name}`;
+      image.onload = () => {
+        resolve(true);
+      }
+      image.src = item.url;
+
+      view.modalWindowContent.appendChild(image);
+      view.modalWindowContent.insertAdjacentHTML('beforeend',
+        `<div class="card__info align-center column">
+          <span class="card__title">${item.name}</span>
+          <span class="card__description">${item.descr}</span>
+          <span class="card__price">${item.price} UAH.</span>
+        </div>
+      `);
+    }
+  });
+}
+
+if (view.modalButtonAdd && view.modalButtonClose) {
+  view.modalButtonAdd.addEventListener('click', addItemToTheCart);
+  view.modalButtonClose.addEventListener('click', hideModalWindow);
+}
+
+document.body.onload = () => {
+  if (view.modalWindow) {
+    view.modalWindow.style.transition = 'var(--default-transition)';
+    view.modalWindow.addEventListener('transitionend', () => {
+      view.hideSpinner();
+      view.showPagination();
+      view.showCatalog();
+    })
+  }
+}
+
+function showModalWindow() {
+  document.body.style.overflow = 'hidden';
+
+  if (view.modalWindow) {
+    view.modalWindow.style.transform = 'scale(1)';
+  }
+}
+
+function hideModalWindow() {
+  document.body.style.overflow = 'auto';
+
+  if (view.modalWindow) {
+    view.modalWindow.style.transform = 'scale(0)';
+  }
+}
+
+function addItemToTheCart() {
+  alert('Will be added soon!');
 }

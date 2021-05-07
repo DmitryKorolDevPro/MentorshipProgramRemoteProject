@@ -1,4 +1,4 @@
-interface IlistItem {
+export interface ListItem {
   name: string;
   descr: string;
   url: string;
@@ -13,6 +13,11 @@ class View {
   buttonNext: HTMLButtonElement | null;
   buttonPrev: HTMLButtonElement | null;
   spinner: HTMLElement | null;
+  modalButtonClose: HTMLButtonElement | null;
+  modalButtonAdd: HTMLButtonElement | null;
+  modalWindow: HTMLDivElement | null;
+  modalWindowContent: HTMLDivElement | null;
+  modalWindowOpened: boolean;
 
   constructor() {
     this.contentContainer = document.querySelector('#content');
@@ -22,9 +27,14 @@ class View {
     this.buttonNext = document.querySelector('#next');
     this.buttonPrev = document.querySelector('#prev');
     this.spinner = document.querySelector('#spinner');
+    this.modalButtonClose = document.querySelector('#close');
+    this.modalButtonAdd = document.querySelector('#add');
+    this.modalWindow = document.querySelector('#modal');
+    this.modalWindowContent = document.querySelector('#details');
+    this.modalWindowOpened = false;
   }
 
-  createNewItem(item: IlistItem, isLast: boolean) {
+  createNewItem(item: ListItem, isLast: boolean) {
     let itemsCont = view.itemsContainer;
     const li = document.createElement('li');
     li.classList.add('align-center', 'column', 'list__item', 'card');
