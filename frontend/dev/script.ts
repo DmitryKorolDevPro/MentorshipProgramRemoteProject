@@ -1,5 +1,4 @@
-import { View } from './view.js';
-const view = new View;
+import { view } from './view.js';
 
 let currentList: object[] = [];
 let currentPage: number = 1;
@@ -102,7 +101,12 @@ async function updatePaginationButtons(): Promise<void> {
 
 async function nextPageExists(page: number): Promise<boolean> {
   try {
-    return (await fetch(`${hostName}/api/sneakers/check/${page}`)).status === 200;
+    return (await fetch(`${hostName}/api/sneakers/check/${page}`))
+    .json()
+    .then(
+      page => {
+        return page.exists;
+      });
   } catch (error) {
     return false;
   }

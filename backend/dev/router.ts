@@ -17,12 +17,7 @@ router.get('/api/sneakers/:page', async (req, res) => {
 
 router.get('/api/sneakers/check/:_page', async (req, res) => {
   const exists: boolean = controller.checkIfPageExists(req.params._page);
-
-  if (exists) {
-    res.status(200).send(exists);
-  } else {
-    res.status(404).send('Error 404');
-  }
+  res.status(200).send({ 'exists': exists });
 });
 
 export { router };
