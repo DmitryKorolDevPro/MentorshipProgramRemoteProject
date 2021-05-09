@@ -1,4 +1,5 @@
 import { Model } from './model.js';
+
 const model = new Model();
 
 export interface ResponseObj {
@@ -10,7 +11,7 @@ export class Controller {
   maxPage: number;
   itemsPerPage: number;
 
-  constructor () {
+  constructor() {
     this.itemsPerPage = 5;
     this.maxPage = 0;
     this.setMaxPage();
@@ -19,8 +20,8 @@ export class Controller {
   async getAllItems(): Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
-      result: []
-    }
+      result: [],
+    };
 
     response.result = await model.getList();
 
@@ -38,30 +39,33 @@ export class Controller {
   async getItems(req: string):Promise<ResponseObj> {
     const response: ResponseObj = {
       statusCode: 200,
-      result: []
-    }
+      result: [],
+    };
 
     let list: object[] = (await this.getAllItems()).result;
-    let page: number = parseInt(req);
-    
+    const page: number = parseInt(req);
+
     if (this.pageIsNotValid(page)) {
       response.statusCode = 400;
+
       return response;
     }
 
     list = list.splice(((page - 1) * this.itemsPerPage), this.itemsPerPage);
     response.result = list.filter(item => item !== undefined);
+
     return response;
   }
 
   async setMaxPage(): Promise<void> {
     const list: object[] = (await this.getAllItems()).result;
+
     this.maxPage = Math.ceil(list.length / this.itemsPerPage);
   }
 
   checkIfPageExists(req: string): boolean {
-    let page:number = parseInt(req);
-    
+    const page:number = parseInt(req);
+
     if (this.pageIsNotValid(page)) {
       return false;
     } else {

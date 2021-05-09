@@ -35,45 +35,54 @@ class View {
   }
 
   createNewItem(item: ListItem, isLast: boolean) {
-    let itemsCont = view.itemsContainer;
+    const itemsCont = view.itemsContainer;
     const li = document.createElement('li');
+
     li.classList.add('align-center', 'column', 'list__item', 'card');
 
     const title = document.createElement('span');
+
     title.classList.add('card__title');
     title.textContent = item.name;
 
     const wrapper = document.createElement('div');
+
     wrapper.classList.add('wrapper');
 
     const img = new Image();
-    img.onload = function () {
+
+    img.onload = function() {
       img.classList.add('card__img');
       img.alt = ('Image of ' + item.name);
 
       const info = document.createElement('div');
+
       info.classList.add('wrapper', 'info');
 
       const descrip = document.createElement('p');
+
       descrip.classList.add('card__description');
-      descrip.textContent = item.descr.split(". ")[0] + ".";
+      descrip.textContent = item.descr.split('. ')[0] + '.';
 
       const price = document.createElement('span');
+
       price.classList.add('card__price');
-      price.textContent = item.price + "UAH.";
+      price.textContent = item.price + 'UAH.';
 
       info.append(descrip, price);
       wrapper.append(img, info);
       li.append(title, wrapper);
+
       if (itemsCont) {
         itemsCont.appendChild(li);
       }
+
       if (isLast) {
         view.hideSpinner();
         view.showCatalog();
         view.showPagination();
       }
-    }
+    };
     img.src = item.url;
   }
 
@@ -99,11 +108,12 @@ class View {
   }
   showSpinner(): void {
     if (view.contentContainer) {
-      view.contentContainer.insertAdjacentHTML('afterbegin', `<i class="fas fa-compact-disc spinner" id="spinner"></i>`);
+      view.contentContainer.insertAdjacentHTML('afterbegin',
+        `<i class="fas fa-compact-disc spinner" id="spinner"></i>`);
     }
   }
   hideSpinner(): void {
-    let spin = document.querySelector('#spinner');
+    const spin = document.querySelector('#spinner');
 
     if (spin) {
       spin.style.display = 'none';
@@ -111,6 +121,7 @@ class View {
   }
   catchError(error = ''): void {
     console.error(`Cannot load and display items. ${error}`);
+
     if (view.contentContainer) {
       view.contentContainer.innerHTML = '<span class="error">Sorry, try again later...</span>';
     }
@@ -118,4 +129,5 @@ class View {
 }
 
 const view = new View();
+
 export { view };

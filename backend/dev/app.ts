@@ -4,7 +4,7 @@ import { router } from './router.js';
 
 const app = express();
 
-const defaultPort:number = parseInt(process.env.PORT || "");
+const defaultPort:number = parseInt(process.env.PORT || '');
 const port:number = defaultPort || 5500;
 
 app.use(cors());

@@ -1,9 +1,10 @@
+/* eslint-disable linebreak-style */
 import { ListItem, view } from './view.js';
 
 let currentList: object[] = [];
 let currentPage: number = 1;
 const itemsPerPage: number = 5;
-const hostName: string = `http://localhost:5500`;
+const hostName: string = 'http://localhost:5500';
 
 document.body.addEventListener('click', handleClick);
 
@@ -17,6 +18,7 @@ async function getDataAndUpdatePage(): Promise<void> {
   view.hidePagination();
   view.showSpinner();
   currentList = await getDataFromBE(currentPage);
+
   if (currentList.length === 0 || currentList.length > itemsPerPage) {
     view.catchError();
   } else {
@@ -32,12 +34,13 @@ async function getDataFromBE(page: number) {
   try {
     return (await fetch(`${hostName}/api/sneakers/${page}`))
       .json()
-      .then(list => {
+      .then((list) => {
         if (list.length === 0) {
           throw new Error('Error. Stock is empty');
         }
+
         return list;
-      })
+      });
   } catch (error) {
     view.catchError(error);
   }
@@ -46,6 +49,7 @@ async function getDataFromBE(page: number) {
 function updateCatalog(): void {
   if (!currentList || !view.itemsContainer) {
     view.catchError();
+
     return;
   }
 
@@ -57,6 +61,7 @@ function updateCatalog(): void {
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
       createNewItem(item, i, true);
+
       return;
     }
     createNewItem(item, i, false);
@@ -65,31 +70,37 @@ function updateCatalog(): void {
 
 function createNewItem(item: ListItem, index: number, isLast: boolean) {
   const li = document.createElement('li');
+
   li.classList.add(`item-№${index}`, 'align-center', 'column', 'list__item', 'card');
 
   const title = document.createElement('span');
+
   title.classList.add('card__title');
   title.textContent = item.name;
 
   const wrapper = document.createElement('div');
+
   wrapper.classList.add('wrapper');
 
   const img = new Image();
 
-  img.onload = function () {
+  img.onload = function() {
     img.classList.add('card__img');
-    img.alt = ('Image of ' + item.name);
+    img.alt = (`Image of ${item.name}`);
 
     const info = document.createElement('div');
+
     info.classList.add('wrapper', 'info');
 
     const descrip = document.createElement('p');
+
     descrip.classList.add('card__description');
-    descrip.textContent = item.descr.split(". ")[0] + ".";
+    descrip.textContent = `${item.descr.split('. ')[0]}.`;
 
     const price = document.createElement('span');
+
     price.classList.add('card__price');
-    price.textContent = item.price + "UAH.";
+    price.textContent = `${item.price}UAH.`;
 
     info.append(descrip, price);
     wrapper.append(img, info);
@@ -104,7 +115,7 @@ function createNewItem(item: ListItem, index: number, isLast: boolean) {
       view.showCatalog();
       view.showPagination();
     }
-  }
+  };
 
   img.src = item.url;
 }
@@ -135,11 +146,13 @@ async function updatePaginationButtons(): Promise<void> {
   if (!view.buttonNext || !view.buttonPrev) {
     return;
   }
+
   if (await nextPageExists(currentPage + 1)) {
     view.buttonNext.disabled = false;
   } else {
     view.buttonNext.disabled = true;
   }
+
   if (currentPage > 1) {
     view.buttonPrev.disabled = false;
   } else {
@@ -152,9 +165,8 @@ async function nextPageExists(page: number): Promise<boolean> {
     return (await fetch(`${hostName}/api/sneakers/check/${page}`))
       .json()
       .then(
-        page => {
-          return page.exists;
-        });
+        (page) => page.exists,
+      );
   } catch (error) {
     return false;
   }
@@ -162,7 +174,7 @@ async function nextPageExists(page: number): Promise<boolean> {
 
 async function handleClick(event: any) {
   // find card that was clicked on
-  const clickedOn = event.path.find((el: HTMLElement) => !el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal'));
+  const clickedOn = event.path.find((el: HTMLElement) => (!el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal')));
 
   // if click was on modal window
   if (clickedOn && clickedOn.classList.contains('modal') || !view.modalWindow) {
@@ -183,21 +195,24 @@ async function handleClick(event: any) {
 }
 
 async function displayItemInModal(index: number) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     const item: any = currentList[+index];
 
     if (view.modalWindowContent) {
       view.modalWindowContent.innerHTML = '';
 
       const image = new Image();
+
       image.classList.add('card__image');
       image.alt = `Image of ${item.name}`;
+
       image.onload = () => {
         resolve(true);
-      }
+      };
       image.src = item.url;
 
       view.modalWindowContent.appendChild(image);
+
       view.modalWindowContent.insertAdjacentHTML('beforeend',
         `<div class="card__info align-center column">
           <span class="card__title">${item.name}</span>
@@ -217,13 +232,14 @@ if (view.modalButtonAdd && view.modalButtonClose) {
 document.body.onload = () => {
   if (view.modalWindow) {
     view.modalWindow.style.transition = 'var(--default-transition)';
+
     view.modalWindow.addEventListener('transitionend', () => {
       view.hideSpinner();
       view.showPagination();
       view.showCatalog();
-    })
+    });
   }
-}
+};
 
 function showModalWindow() {
   document.body.style.overflow = 'hidden';

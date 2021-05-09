@@ -5,7 +5,8 @@
   "scripts": {
     "start": "start node backend/prod/app.js && cd frontend && start live-server",
     "build": "tsc -p frontend/tsconfig.json && tsc -p backend/tsconfig.json",
-    "dev": "start tsc -p frontend/tsconfig.json --watch && start tsc -p backend/tsconfig.json --watch && cd frontend && start live-server && cd .. && node node_modules/nodemon/bin/nodemon.js -e ts --exec node backend/prod/app.js"
+    "dev": "start tsc -p frontend/tsconfig.json --watch && start tsc -p backend/tsconfig.json --watch && cd frontend && start live-server && cd .. && node node_modules/nodemon/bin/nodemon.js -e ts --exec node backend/prod/app.js",
+    "lint": "npx eslint . --ext .ts"
   },
   "repository": {
     "type": "git",
@@ -22,9 +23,14 @@
     "express": "4.17.1"
   },
   "devDependencies": {
+    "@mate-academy/eslint-config": "0.0.16",
     "@types/cors": "2.8.10",
     "@types/express": "4.17.11",
     "@types/node": "14.14.41",
+    "@typescript-eslint/eslint-plugin": "4.22.1",
+    "@typescript-eslint/parser": "4.22.1",
+    "eslint": "7.2.0",
+    "eslint-plugin-import": "2.22.1",
     "live-server": "1.2.1",
     "nodemon": "2.0.7",
     "typescript": "4.2.4"
