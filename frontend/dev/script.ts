@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import { ListItem, view } from './view.js';
+import { view } from './view.js';
 
 let currentList: object[] = [];
 let currentPage: number = 1;
@@ -60,64 +60,12 @@ function updateCatalog(): void {
 
     if (i === currentList.length - 1) {
       // If item is the last one, he deletes the spinner
-      createNewItem(item, i, true);
+      view.createNewItem(item, i, true);
 
       return;
     }
-    createNewItem(item, i, false);
+    view.createNewItem(item, i, false);
   }
-}
-
-function createNewItem(item: ListItem, index: number, isLast: boolean) {
-  const li = document.createElement('li');
-
-  li.classList.add(`item-№${index}`, 'align-center', 'column', 'list__item', 'card');
-
-  const title = document.createElement('span');
-
-  title.classList.add('card__title');
-  title.textContent = item.name;
-
-  const wrapper = document.createElement('div');
-
-  wrapper.classList.add('wrapper');
-
-  const img = new Image();
-
-  img.onload = function() {
-    img.classList.add('card__img');
-    img.alt = (`Image of ${item.name}`);
-
-    const info = document.createElement('div');
-
-    info.classList.add('wrapper', 'info');
-
-    const descrip = document.createElement('p');
-
-    descrip.classList.add('card__description');
-    descrip.textContent = `${item.descr.split('. ')[0]}.`;
-
-    const price = document.createElement('span');
-
-    price.classList.add('card__price');
-    price.textContent = `${item.price}UAH.`;
-
-    info.append(descrip, price);
-    wrapper.append(img, info);
-    li.append(title, wrapper);
-
-    if (view.itemsContainer) {
-      view.itemsContainer.appendChild(li);
-    }
-
-    if (isLast) {
-      view.hideSpinner();
-      view.showCatalog();
-      view.showPagination();
-    }
-  };
-
-  img.src = item.url;
 }
 
 function nextPage(): void {
@@ -146,18 +94,8 @@ async function updatePaginationButtons(): Promise<void> {
   if (!view.buttonNext || !view.buttonPrev) {
     return;
   }
-
-  if (await nextPageExists(currentPage + 1)) {
-    view.buttonNext.disabled = false;
-  } else {
-    view.buttonNext.disabled = true;
-  }
-
-  if (currentPage > 1) {
-    view.buttonPrev.disabled = false;
-  } else {
-    view.buttonPrev.disabled = true;
-  }
+  view.buttonNext.disabled = !(await nextPageExists(currentPage + 1));
+  view.buttonPrev.disabled = currentPage <= 1
 }
 
 async function nextPageExists(page: number): Promise<boolean> {
@@ -188,9 +126,9 @@ async function handleClick(event: any) {
     view.showSpinner();
 
     await displayItemInModal(clickedOn.classList[0].split('№')[1])
-      .then(showModalWindow);
+      .then(view.showModalWindow);
   } else {
-    hideModalWindow();
+    view.hideModalWindow();
   }
 }
 
@@ -226,7 +164,7 @@ async function displayItemInModal(index: number) {
 
 if (view.modalButtonAdd && view.modalButtonClose) {
   view.modalButtonAdd.addEventListener('click', addItemToTheCart);
-  view.modalButtonClose.addEventListener('click', hideModalWindow);
+  view.modalButtonClose.addEventListener('click', view.hideModalWindow);
 }
 
 document.body.onload = () => {
@@ -240,22 +178,6 @@ document.body.onload = () => {
     });
   }
 };
-
-function showModalWindow() {
-  document.body.style.overflow = 'hidden';
-
-  if (view.modalWindow) {
-    view.modalWindow.style.transform = 'scale(1)';
-  }
-}
-
-function hideModalWindow() {
-  document.body.style.overflow = 'auto';
-
-  if (view.modalWindow) {
-    view.modalWindow.style.transform = 'scale(0)';
-  }
-}
 
 function addItemToTheCart() {
   alert('Will be added soon!');
