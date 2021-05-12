@@ -103,7 +103,9 @@ class View {
       }
     });
   }
-
+  addItemToTheCart() {
+    alert('Will be added soon!');
+  }
   showCatalog(): void {
     if (view.itemsContainer) {
       view.itemsContainer.style.display = 'flex';
