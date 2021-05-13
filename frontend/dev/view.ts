@@ -1,5 +1,7 @@
+/* eslint-disable no-console */
+/* eslint-disable max-len */
 import { ListItem } from './interfaces.js';
-
+import { model } from './model.js';
 class View {
   contentContainer: HTMLDivElement | null;
   itemsContainer: HTMLUListElement | null;
@@ -45,7 +47,7 @@ class View {
 
     const img = new Image();
 
-    img.onload = function() {
+    img.onload = function () {
       img.classList.add('card__img');
       img.alt = (`Image of ${item.name}`);
 
@@ -108,6 +110,38 @@ class View {
         `);
       }
     });
+  }
+  async updatePaginationButtons(): Promise<void> {
+    if (!view.buttonNext || !view.buttonPrev) {
+      return;
+    }
+    view.buttonNext.disabled = !(await model.nextPageExists(model.currentPage + 1));
+    view.buttonPrev.disabled = model.currentPage <= 1;
+  }
+  updatePageNum(): void {
+    if (view.currentPageSpan) {
+      view.currentPageSpan.textContent = String(model.currentPage);
+    }
+  }
+  updateCatalog(): void {
+    if (!model.currentList || !view.itemsContainer) {
+      view.catchError();
+
+      return;
+    }
+    view.itemsContainer.innerHTML = '';
+
+    for (let i = 0; i < model.currentList.length; i++) {
+      const item: any = model.currentList[i];
+
+      if (i === model.currentList.length - 1) {
+        // If item is the last one, he deletes the spinner
+        view.createNewItem(item, i, true);
+
+        return;
+      }
+      view.createNewItem(item, i, false);
+    }
   }
   addItemToTheCart() {
     alert('Will be added soon!');
