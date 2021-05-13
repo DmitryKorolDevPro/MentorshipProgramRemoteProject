@@ -1,4 +1,4 @@
-import { ListItem } from './interface.js';
+import { ListItem } from './interfaces.js';
 
 class View {
   contentContainer: HTMLDivElement | null;
@@ -13,7 +13,6 @@ class View {
   modalWindow: HTMLDivElement | null;
   modalWindowContent: HTMLDivElement | null;
   modalWindowOpened: boolean;
-
 
   constructor() {
     this.contentContainer = document.querySelector('#content');
@@ -32,28 +31,35 @@ class View {
 
   createNewItem(item: ListItem, index: number, isLast: boolean) {
     const li = document.createElement('li');
+
     li.classList.add(`item-№${index}`, 'align-center', 'column', 'list__item', 'card');
 
     const title = document.createElement('span');
+
     title.classList.add('card__title');
     title.textContent = item.name;
 
     const wrapper = document.createElement('div');
+
     wrapper.classList.add('wrapper');
 
     const img = new Image();
-    img.onload = function () {
+
+    img.onload = function() {
       img.classList.add('card__img');
       img.alt = (`Image of ${item.name}`);
 
       const info = document.createElement('div');
+
       info.classList.add('wrapper', 'info');
 
       const descrip = document.createElement('p');
+
       descrip.classList.add('card__description');
       descrip.textContent = `${item.descr.split('. ')[0]}.`;
 
       const price = document.createElement('span');
+
       price.classList.add('card__price');
       price.textContent = `${item.price}UAH.`;
 
@@ -161,5 +167,7 @@ class View {
     }
   }
 }
+
 const view = new View();
+
 export { view };

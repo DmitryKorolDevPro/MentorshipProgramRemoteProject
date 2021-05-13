@@ -2,7 +2,6 @@
 import { view } from './view.js';
 import { model } from './model.js';
 class Controller {
-
   buttonListener() {
     document.body.addEventListener('click', model.handleClick);
 
@@ -22,6 +21,7 @@ document.body.onload = () => {
   controller.buttonListener();
   model.getDataAndUpdatePage();
   model.updatePaginationButtons();
+
   if (view.modalWindow) {
     view.modalWindow.style.transition = 'var(--default-transition)';
 
@@ -34,4 +34,5 @@ document.body.onload = () => {
 };
 
 const controller = new Controller();
+
 export { controller };
