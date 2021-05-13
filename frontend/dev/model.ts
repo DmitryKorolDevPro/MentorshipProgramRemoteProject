@@ -28,6 +28,7 @@ class Model {
     }
     async handleClick(event: any) {
         // find card that was clicked on
+        this.currentList = await this.getDataFromBE(this.currentPage);
         const clickedOn = event.path.find((el: HTMLElement) => (!el.classList ? false : el.classList.contains('list__item') || el.classList.contains('modal')));
         // if click was on modal window
         if (clickedOn && clickedOn.classList.contains('modal') || !view.modalWindow) {
@@ -38,7 +39,6 @@ class Model {
             view.hideCatalog();
             view.hidePagination();
             view.showSpinner();
-
             await view.displayItemInModal(clickedOn.classList[0].split('№')[1], this.currentList)
                 .then(view.showModalWindow);
         } else {
