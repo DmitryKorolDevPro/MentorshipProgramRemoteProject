@@ -39,6 +39,14 @@ class Model {
       return false;
     }
   }
+  saveDataLocal(elements: any) {
+    localStorage.setItem('orders', elements);
+  }
+  loadDataLocal() {
+    if (localStorage.getItem('orders')) {
+      this.saveDataLocal(localStorage.getItem('orders'));
+    }
+  }
 }
 
 const model = new Model();

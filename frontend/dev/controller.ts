@@ -74,6 +74,7 @@ document.body.onload = () => {
   controller.buttonListener();
   controller.getDataAndUpdatePage();
   view.updatePaginationButtons();
+  model.loadDataLocal();
 
   if (view.modalWindow) {
     view.modalWindow.style.transition = 'var(--default-transition)';
